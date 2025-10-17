@@ -1,0 +1,107 @@
+/*********************************/
+/*           Choices             */
+/*===============================*/
+.filter-search-form {
+    .icons {
+        @apply absolute top-[48%] -translate-y-1/2 start-3 z-1 text-violet-600 text-[20px];
+    }
+}
+.registration-form {
+    @apply relative;
+    .submit-btn {
+        @apply rounded-lg;
+    }
+    .form-input,
+    .choices[data-type*=select-one] .choices__inner {
+        @apply rounded-lg;
+    }
+}
+
+@media (min-width:992px) {
+    .filter-border {
+        @apply before:content-[''] before:absolute before:top-[10px] before:end-0 before:h-10 before:z-1 before:border-r before:border-inherit before:rounded-md before:outline-0 dark:before:border-gray-700;
+    }
+    .registration-form {
+        @apply relative;
+        .submit-btn {
+            @apply rounded-t-none rounded-e-sm rounded-b-sm rounded-s-none;
+        }
+        .form-input {
+            @apply rounded-t-sm rounded-e-none rounded-b-none rounded-s-sm outline-0;
+        }
+        .choices[data-type*=select-one] .choices__inner {
+            @apply rounded-none;
+        }
+    }
+}
+
+.filter-input-box,
+.filter-input-box.form-select,
+.filter-search-form .choices__inner {
+    @apply shadow-none border-0 rounded-none text-[15px] h-[60px] pt-[13px] pe-[6px] pb-[15px] ps-[45px];
+}
+
+.choices__inner {
+    @apply bg-gray-50 dark:bg-slate-800;
+}
+
+.choices__list--dropdown,
+.choices[data-type*=select-one] .choices__input {
+    @apply bg-white dark:bg-slate-900 border-0 rounded-[5px] shadow dark:shadow-gray-800 z-999;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    @apply bg-gray-50 dark:bg-slate-800 text-black dark:text-white;
+}
+
+.choices__list,
+.choices__list--dropdown .choices__item--selectable {
+    @apply text-slate-400;
+}
+
+.choices__list--dropdown, 
+.choices__list[aria-expanded] {
+    @apply border-0 z-2;
+}
+
+
+.vs--searchable .vs__dropdown-toggle {
+    @apply filter-search-form form-select relative flex h-[60px] w-full bg-gray-50 dark:bg-slate-800 border-0 focus:ring-0 outline-none text-slate-400 p-0 -ms-1;  
+}
+.form-select{
+    @apply cursor-pointer;
+}
+
+.vs__clear {
+ @apply hidden; 
+} 
+.vs__selected {
+    @apply dark:text-slate-400;
+}
+
+.vs__open-indicator {
+    @apply hidden; 
+   }
+
+.vs__search {
+    @apply  ms-10 bg-red-500 m-0;
+}
+
+.vs__dropdown-menu {
+    @apply  dark:bg-slate-800; 
+}
+
+.vs--single .vs__selected{
+    @apply mb-1;
+}
+
+// .vs--single .vs__selected{
+//     @apply mt-2;
+// }
+
+
+.vs__dropdown-menu {
+    li {
+        @apply dark:text-white;
+    }
+}
