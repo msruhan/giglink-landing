@@ -65,21 +65,23 @@
 
                     <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-semibold text-slate-900 dark:text-white">{{ product?.seller_name || 'Penjual' }}</span>
+                        <span class="font-semibold text-slate-900 dark:text-white">{{ product?.penjual || 'Penjual' }}</span>
                     </div>
                     <span class="text-slate-400 text-sm">Penjual</span>
                     </div>
                 </div>
 
                 <!-- Tombol Chat -->
-                <router-link
-                    :to="{ name: 'creator-chat', params: { id: product?.id } }"
-                    class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-full px-4 py-2 transition"
+                <button
+                  v-if="product?.whatsapp"
+                  @click="chatWhatsapp"
+                  class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-full px-4 py-2 transition"
                 >
-                    <i class="mdi mdi-chat text-white text-lg"></i>
-                    Chat Penjual
-                </router-link>
+                  <i class="mdi mdi-whatsapp text-white text-lg"></i>
+                  Whatsapp
+                </button>
             </div>
+                
 
             <!-- Bagikan ke Sosial Media -->
             <div class="mt-8 border-t pt-6">
@@ -105,9 +107,15 @@
 
           <!-- Product Info -->
           <div class="lg:col-span-6 lg:ms-8">
-            <div v-if="product?.condition" class="mb-1">
-              <span v-if="product.condition === 'new'" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700">NEW</span>
-              <span v-else-if="product.condition === 'second'" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-orange-100 text-orange-700">SECOND</span>
+            <div v-if="product?.kondisi" class="mb-1">
+              <span
+                v-if="product.kondisi === 'Baru'"
+                class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700 uppercase"
+              >{{ product.kondisi.toUpperCase() }}</span>
+              <span
+                v-else-if="product.kondisi === 'Bekas'"
+                class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-orange-100 text-orange-700 uppercase"
+              >{{ product.kondisi.toUpperCase() }}</span>
             </div>
             <h1 class="md:text-3xl text-2xl font-bold mb-2">{{ product?.title || '' }}</h1>
             <div class="flex items-center gap-3 mb-4">
@@ -117,24 +125,24 @@
             </div>
             <div>
               <div class="flex gap-2 mb-4">
-                <button @click="activeTab = 'deskripsi'" :class="activeTab === 'deskripsi' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Deskripsi</button>
-                <button @click="activeTab = 'spesifikasi'" :class="activeTab === 'spesifikasi' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Spesifikasi</button>
-                <button @click="activeTab = 'info'" :class="activeTab === 'info' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Info Penting</button>
+                <button @click="activeTab = 'deskripsi'" :class="activeTab === 'deskripsi' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Deskripsi</button>
+                <button @click="activeTab = 'spesifikasi'" :class="activeTab === 'spesifikasi' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Spesifikasi</button>
+                <button @click="activeTab = 'info'" :class="activeTab === 'info' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Info Penting</button>
               </div>
               <div class="bg-gray-50 dark:bg-slate-800 rounded-b-md p-4 mb-6">
                 <div v-if="activeTab === 'deskripsi'">
                   <ul class="list-disc pl-6 space-y-2 text-slate-500">
                     <li>
                       <span class="font-semibold text-slate-700 dark:text-white">Kondisi Barang:</span><br>
-                      <span v-if="product?.description" class="dark:text-white">{{ product?.description }}</span>
+                      <span v-if="product?.description" class="dark:text-white" v-html="formatNewline(product?.description)"></span>
                     </li>
                     <li>
                       <span class="font-semibold text-slate-700 dark:text-white">Kelengkapan:</span><br>
-                      <span v-if="product?.description" class="dark:text-white">{{ product?.description }}</span>
+                      <span v-if="product?.kelengkapan" class="dark:text-white" v-html="formatNewline(product?.kelengkapan)"></span>
                     </li>
                     <li>
                       <span class="font-semibold text-slate-700 dark:text-white">Kekurangan:</span><br>
-                      <span v-if="product?.description" class="dark:text-white">{{ product?.description }}</span>
+                      <span v-if="product?.kekurangan" class="dark:text-white" v-html="formatNewline(product?.kekurangan)"></span>
                     </li>
                   </ul>
                 </div>
@@ -144,23 +152,23 @@
                       <tbody>
                         <tr class="even:bg-gray-50 even:dark:bg-slate-700">
                           <td class="px-6 py-3 font-semibold text-slate-700 dark:text-white w-40 border-b border-gray-100 dark:border-slate-700">Chipset</td>
-                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">Apple A20 Bionic</td>
+                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">{{ product?.spesification.chipset || '' }}</td>
                         </tr>
                         <tr class="even:bg-gray-50 even:dark:bg-slate-700">
                           <td class="px-6 py-3 font-semibold text-slate-700 dark:text-white border-b border-gray-100 dark:border-slate-700">Layar</td>
-                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">6.7" LTPO OLED, 120Hz</td>
+                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">{{ product?.spesification.layar || '' }}</td>
                         </tr>
                         <tr class="even:bg-gray-50 even:dark:bg-slate-700">
                           <td class="px-6 py-3 font-semibold text-slate-700 dark:text-white border-b border-gray-100 dark:border-slate-700">Kamera</td>
-                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">48MP + 12MP + 12MP</td>
+                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">{{ product?.spesification.kamera || '' }}</td>
                         </tr>
                         <tr class="even:bg-gray-50 even:dark:bg-slate-700">
                           <td class="px-6 py-3 font-semibold text-slate-700 dark:text-white border-b border-gray-100 dark:border-slate-700">Baterai</td>
-                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">4500 mAh</td>
+                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">{{ product?.spesification.baterai || '' }}</td>
                         </tr>
                         <tr class="even:bg-gray-50 even:dark:bg-slate-700">
                           <td class="px-6 py-3 font-semibold text-slate-700 dark:text-white">Warna</td>
-                          <td class="px-6 py-3 text-black-700 dark:text-white-300">Silver, Graphite, Gold, Sierra Blue</td>
+                          <td class="px-6 py-3 text-black-700 dark:text-white-300 border-b border-gray-100 dark:border-slate-700">{{ product?.spesification.warna || '' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -174,36 +182,19 @@
 
             <!-- Pilihan Model dan Kapasitas -->
             <div class="mb-6">
-                <h2 class="font-semibold text-lg mb-3">Model</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-2 gap-3">
-                    <button
-                    v-for="(m, idx) in models"
-                    :key="'model-' + idx"
-                    @click="selectedModel = m"
-                    :class="[
-                        'border rounded-lg py-3 px-4 text-center font-medium transition',
-                        selectedModel === m
-                        ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black'
-                        : 'border-gray-300 hover:border-blue-400 text-slate-700'
-                    ]"
-                    >
-                    {{ m }}
-                    </button>
-                </div>
-            </div>
-
-            <div class="mb-6">
                 <h2 class="font-semibold text-lg mb-3">Kapasitas</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <button
                     v-for="(k, idx) in kapasitasList"
                     :key="'kapasitas-' + idx"
-                    @click="selectedKapasitas = k"
+                    @click="enabledKapasitasList.includes(k) ? selectedKapasitas = k : null"
+                    :disabled="!enabledKapasitasList.includes(k)"
                     :class="[
-                        'border rounded-lg py-3 px-4 text-center font-medium transition',
-                        selectedKapasitas === k
+                      'border rounded-lg py-3 px-4 text-center font-medium transition',
+                      selectedKapasitas === k
                         ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black'
-                        : 'border-gray-300 hover:border-blue-400 text-slate-700'
+                        : 'border-gray-300 hover:border-blue-400 text-slate-700',
+                      !enabledKapasitasList.includes(k) ? 'opacity-50 cursor-not-allowed' : ''
                     ]"
                     >
                     {{ k }}
@@ -218,12 +209,14 @@
                 <button
                   v-for="(m, idx) in metodePembayaranList"
                   :key="'metode-' + idx"
-                  @click="selectedMetodePembayaran = m"
+                  @click="enabledMetodePembayaranList.includes(m) ? selectedMetodePembayaran = m : null"
+                  :disabled="!enabledMetodePembayaranList.includes(m)"
                   :class="[
                     'border rounded-lg py-3 px-4 text-center font-medium transition',
                     selectedMetodePembayaran === m
                       ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black'
-                      : 'border-gray-300 hover:border-blue-400 text-slate-700'
+                      : 'border-gray-300 hover:border-blue-400 text-slate-700',
+                    !enabledMetodePembayaranList.includes(m) ? 'opacity-50 cursor-not-allowed' : ''
                   ]"
                 >
                   {{ m }}
@@ -293,7 +286,7 @@
                   <form class="text-start">
                     <div class="grid grid-cols-1 gap-4">
                       <div>
-                        <label class="font-semibold mb-2 block" for="model">Model</label>
+                        <label class="font-semibold mb-2 block" for="model">Nama Barang</label>
                         <input
                           id="model"
                           type="text"
@@ -314,16 +307,20 @@
                       </div>
                       <div>
                         <label class="font-semibold mb-2 block" for="metode">Metode Pembayaran</label>
-                        <input
-                          id="metode"
-                          type="text"
-                          :value="selectedMetodePembayaran"
-                          readonly
-                          class="form-input w-full text-[15px] py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-full outline-none border border-gray-200 focus:border-blue-600 dark:border-gray-800 dark:focus:border-blue-600 focus:ring-0"
-                        />
+                        <div class="relative w-full">
+                          <input
+                            id="metode"
+                            type="text"
+                            readonly
+                            class="form-input w-full text-[15px] py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-full outline-none border border-gray-200 focus:border-blue-600 dark:border-gray-800 dark:focus:border-blue-600 focus:ring-0 pr-32"
+                          />
+                          <span class="absolute left-3 top-1/2 -translate-y-1/2 px-4 py-1 text-xs font-bold rounded-full bg-orange-100 text-black-700 uppercase pointer-events-none dark:text-black">
+                            {{ selectedMetodePembayaran }}
+                          </span>
+                        </div>
                       </div>
                       <div>
-                        <label class="font-semibold mb-2 block" for="price">Harga</label>
+                        <label class="font-semibold mb-2 block" for="price">Total Harga</label>
                         <input
                           id="price"
                           type="text"
@@ -338,15 +335,15 @@
                   <div class="flex items-center p-4 bg-red-600/10 text-red-600 mt-4 rounded-lg">
                     <i class="uil uil-exclamation-octagon text-3xl"></i>
                     <div class="ms-2">
-                      <span class="block font-semibold">This creator is not verified</span>
-                      <span class="block">Purchase this item at your own risk</span>
+                      <span class="block font-semibold dark:text-white">Perhatian!</span>
+                      <span class="block dark:text-white">Dengan melanjutkan pembayaran, kamu menyetujui S&amp;K yang berlaku</span>
                     </div>
                   </div>
 
                   <div class="mt-4">
                     <a href="javascript:void(0)" data-modal-toggle="NftBuynow"
-                        class="btn rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white w-full"><i
-                            class="mdi mdi-lightning-bolt"></i> Buy Now</a>
+                        class="btn rounded-full bg-blue-900 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white w-full"><i
+                            class="mdi mdi-lightning-bolt"></i> Bayar Sekarang</a>
                   </div>
                 </div>
             </div>
@@ -359,7 +356,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import navbar from '@/components/navbar/navbar.vue';
 import switcher from '@/components/switcher.vue';
 import footers from '@/components/footer/footer.vue'
@@ -377,7 +374,30 @@ const productStore = useProductStore()
 
 const models = ['iPhone 17 Pro', 'iPhone 17 Pro Max']
 const kapasitasList = ['256 GB', '512 GB', '1 TB', '2 TB']
+
+const enabledKapasitasList = computed(() => {
+  let prodKapasitas = product.value?.kapasitas || product.value?.spesification?.kapasitas || ''
+  let arr = []
+  if (Array.isArray(prodKapasitas)) {
+    arr = prodKapasitas
+  } else if (typeof prodKapasitas === 'string') {
+    arr = prodKapasitas.split(',').map(k => k.trim()).filter(Boolean)
+  }
+  return kapasitasList.filter(k => arr.includes(k))
+})
+
 const metodePembayaranList = ['Rekber', 'Tokopedia', 'Shopee', 'Tiktok']
+
+const enabledMetodePembayaranList = computed(() => {
+  const pembayaran = product.value?.pembayaran || {}
+  return metodePembayaranList.filter(m => {
+    if (m === 'Rekber') return pembayaran.rekber === 'YES'
+    if (m === 'Tokopedia') return pembayaran.tokped === 'YES'
+    if (m === 'Shopee') return pembayaran.shopee === 'YES'
+    if (m === 'Tiktok') return pembayaran.tiktok === 'YES'
+    return false
+  })
+})
 
 const selectedModel = ref(models[1]) // default: iPhone 17 Pro Max
 const selectedKapasitas = ref(kapasitasList[0]) // default: 256 GB
@@ -425,6 +445,14 @@ function handleBuyNow() {
 onMounted(async () => {
   if (id.value) {
     product.value = await productStore.getDetailProducts(id.value)
+    // Parse spesification JSON string to object
+    if (product.value && typeof product.value.spesification === 'string') {
+      try {
+        product.value.spesification = JSON.parse(product.value.spesification)
+      } catch (e) {
+        product.value.spesification = {}
+      }
+    }
     // Ambil gambar utama dan gambar tambahan dari variabel image_url_1, image_url_2, dst
     const images = []
     if (product.value.image_url_1) images.push(product.value.image_url_1)
@@ -437,8 +465,33 @@ onMounted(async () => {
     if (!product.value.condition) {
       product.value.condition = 'new'
     }
+    // Set default selectedKapasitas ke kapasitas yang bisa dipilih
+    if (enabledKapasitasList.value.length > 0) {
+      selectedKapasitas.value = enabledKapasitasList.value[0]
+    }
+    // Set default selectedMetodePembayaran ke yang enabled
+    if (enabledMetodePembayaranList.value.length > 0) {
+      selectedMetodePembayaran.value = enabledMetodePembayaranList.value[0]
+    }
   }
 })
+
+// Fungsi untuk mengubah newline (\n) menjadi <br>
+function formatNewline(text) {
+  if (!text) return '';
+  return text.replace(/\n/g, '<br>');
+}
+
+// Fungsi untuk chat Whatsapp
+function chatWhatsapp() {
+  if (!product.value?.whatsapp) return;
+  const phone = product.value.whatsapp.replace(/[^\d]/g, '');
+  const seller = product.value.penjual || '';
+  const title = product.value.title || '';
+  const message = encodeURIComponent(`Halo ${seller} saya melihat iklan Anda di INDOTECHNICIANS. Apakah produk ${title} masih ada?`);
+  const url = `https://wa.me/${phone}?text=${message}`;
+  window.open(url, '_blank');
+}
 </script>
 
 <style lang="scss" scoped></style>
