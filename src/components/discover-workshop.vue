@@ -13,7 +13,7 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-violet-600 rounded-lg -mt-1 group-hover:-mt-2 -ms-1 group-hover:-ms-2 h-[98%] w-[98%] -z-1 transition-all duration-500"></div>
                 <div class="relative overflow-hidden">
                     <div class="relative overflow-hidden rounded-lg">
-                        <img :src="product.image_url" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
+                        <img :src="product.image_url_1" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
                     </div>
                     
                     <div class="absolute -bottom-20 group-hover:bottom-1/2 group-hover:translate-y-1/2 start-0 end-0 mx-auto text-center transition-all duration-500">
@@ -67,7 +67,7 @@
             <div v-for="product in setProductData.slice(0, 8)" :key="product.id" class="group relative overflow-hidden p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 hover:-mt-2 h-fit">
                 <div class="relative overflow-hidden">
                     <div class="relative overflow-hidden rounded-lg">
-                        <img :src="product.image_url" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
+                        <img :src="product.image_url_1" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
                     </div>
 
                     <div class="absolute -bottom-20 group-hover:bottom-1/2 group-hover:translate-y-1/2 start-0 end-0 mx-auto text-center transition-all duration-500">
