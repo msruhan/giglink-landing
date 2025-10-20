@@ -76,8 +76,8 @@
                       :to="{ name: 'creator-chat', params: { id: license?.id } }"
                       class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-full px-4 py-2 transition"
                   >
-                      <i class="mdi mdi-chat text-white text-lg"></i>
-                      Chat Penjual
+                      <i class="mdi mdi-whatsapp text-white text-lg"></i>
+                      Whatsapp
                   </router-link>
               </div>
 
@@ -109,37 +109,46 @@
               <span v-if="license.condition === 'new'" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700">NEW</span>
               <span v-else-if="license.condition === 'second'" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-orange-100 text-orange-700">SECOND</span>
             </div>
-            <h1 class="md:text-3xl text-2xl font-bold mb-2">{{ license?.name || '' }}</h1>
-            <div class="flex items-center gap-3 mb-4">
-              <span class="text-blue-600 font-semibold text-lg">{{ formatRupiah(license?.price) }}</span>
-              <span class="text-xs text-slate-400">{{ license?.views || 0 }}x dilihat</span>
-              <span class="flex items-center text-xs text-yellow-500"><i class="mdi mdi-star"></i> {{ license?.rating || 0 }}/5</span>
+            <h1 class="md:text-3xl text-2xl font-bold mb-2">{{ license?.title || '' }}</h1>
+            <div class="flex items-center gap-4 mb-4">
+              <span class="text-blue-600 font-bold text-2xl">{{ formatRupiah(license?.price) }}</span>
+              <div class="flex gap-2">
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-xs text-slate-600 font-medium">
+                  <i class="mdi mdi-cart-outline text-base text-blue-500"></i>
+                  Terjual {{ license?.sold || 0 }}x
+                </span>
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-xs text-slate-600 font-medium">
+                  <i class="mdi mdi-eye-outline text-base text-green-500"></i>
+                  {{ license?.views || 0 }}x dilihat
+                </span>
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-yellow-100 text-xs text-yellow-700 font-medium">
+                  <i class="mdi mdi-star text-base"></i>
+                  {{ license?.rating || 0 }}/5
+                </span>
+              </div>
             </div>
             <div>
               <div class="flex gap-2 mb-4">
-                <button @click="activeTab = 'deskripsi'" :class="activeTab === 'deskripsi' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Deskripsi</button>
-                <button @click="activeTab = 'spesifikasi'" :class="activeTab === 'spesifikasi' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Spesifikasi</button>
-                <button @click="activeTab = 'info'" :class="activeTab === 'info' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Info Penting</button>
+                <button @click="activeTab = 'deskripsi'" :class="activeTab === 'deskripsi' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Deskripsi</button>
+                <button @click="activeTab = 'info'" :class="activeTab === 'info' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Info Penting</button>
               </div>
               <div class="bg-gray-50 dark:bg-slate-800 rounded-b-md p-4 mb-6">
                 <div v-if="activeTab === 'deskripsi'">
                   <ul class="list-disc pl-6 space-y-2 text-slate-500">
                     <li>
                       <span class="font-semibold text-slate-700 dark:text-white">Deskripsi:</span><br>
-                      <span v-if="license?.description" class="dark:text-white">{{ license?.description }}</span>
+                      <span v-if="license?.description" class="dark:text-white" v-html="formatNewline(license?.description)"></span>
                     </li>
                   </ul>
-                </div>
-                <div v-else-if="activeTab === 'spesifikasi'">
                   <ul class="list-disc pl-6 space-y-2 text-slate-500">
                     <li>
-                      <span class="font-semibold text-slate-700 dark:text-white">Spesifikasi:</span><br>
-                      <span v-if="license?.spesification" class="dark:text-white">{{ license?.spesification }}</span>
+                      <span class="font-semibold text-slate-700 dark:text-white">Fitur:</span><br>
+                      <span v-if="license?.feature" class="dark:text-white" v-html="formatNewline(license?.feature)"></span>
                     </li>
                   </ul>
                 </div>
                 <div v-else>
-                  <p class="text-slate-500 dark:text-white">{{ license?.info || 'Informasi belum tersedia.' }}</p>
+                  <p class="text-slate-500 dark:text-white" v-html="formatNewline(license?.info)"></p>
                 </div>
               </div>
             </div>
@@ -172,30 +181,61 @@
             </div>
             <div class="mb-6">
               <!-- <h2 class="font-semibold text-lg mb-3">Kapasitas</h2> -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white">Credit</button>
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white">Bulanan</button>
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white">Tahunan</button>
+              <div v-if="license" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button
+                  :class="[
+                    'border rounded-lg py-3 px-4 text-center font-medium transition',
+                    license.license_type === 'credit' ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black' : 'border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white',
+                    license.license_type !== 'credit' ? 'opacity-50 cursor-not-allowed' : ''
+                  ]"
+                  :disabled="license.license_type !== 'credit'"
+                  @click="license.license_type === 'credit' ? selectedLicenseType = 'credit' : null"
+                >Credit</button>
+                <button
+                  :class="[
+                    'border rounded-lg py-3 px-4 text-center font-medium transition',
+                    license.license_type === 'aktivasi' ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black' : 'border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white',
+                    license.license_type !== 'aktivasi' ? 'opacity-50 cursor-not-allowed' : ''
+                  ]"
+                  :disabled="license.license_type !== 'aktivasi'"
+                  @click="license.license_type === 'aktivasi' ? selectedLicenseType = 'bulan' : null"
+                >Bulan</button>
+                <button
+                  :class="[
+                    'border rounded-lg py-3 px-4 text-center font-medium transition',
+                    license.license_type === 'aktivasi' ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black' : 'border-gray-300 hover:border-blue-400 text-slate-700 dark:text-white',
+                    license.license_type !== 'aktivasi' ? 'opacity-50 cursor-not-allowed' : ''
+                  ]"
+                  :disabled="license.license_type !== 'aktivasi'"
+                  @click="license.license_type === 'aktivasi' ? selectedLicenseType = 'tahun' : null"
+                >Tahun</button>
               </div>
             </div>
             <!-- Metode Pembayaran (dummy) -->
             <div class="mb-10">
               <h2 class="font-semibold text-lg mb-3">Pilihan Pembayaran</h2>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 flex items-center justify-center gap-2 dark:text-white">
-                  <span>Rekber</span>
-                </button>
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 flex items-center justify-center gap-2 dark:text-white">
-                  <img  :src="tokopedia" alt="Tokopedia" class="w-6 h-6" />
-                  <span>Tokopedia</span>
-                </button>
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 flex items-center justify-center gap-2 dark:text-white">
-                  <img :src="shopee" alt="Shopee" class="w-6 h-6" />
-                  <span>Shopee</span>
-                </button>
-                <button class="border rounded-lg py-3 px-4 text-center font-medium transition border-gray-300 hover:border-blue-400 text-slate-700 flex items-center justify-center gap-2 dark:text-white">
-                  <img :src="tiktok" alt="Tiktok" class="w-6 h-6" />
-                  <span>Tiktok</span>
+                <button
+                  v-for="(m, idx) in metodePembayaranList"
+                  :key="'metode-' + idx"
+                  @click="enabledMetodePembayaranList.includes(m.label) ? selectedMetodePembayaran = m.label : null"
+                  :disabled="!enabledMetodePembayaranList.includes(m.label)"
+                  :class="[
+                    'border rounded-lg py-3 px-4 text-center font-medium transition flex items-center justify-center gap-2',
+                    'dark:bg-white',
+                    selectedMetodePembayaran === m.label
+                      ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black'
+                      : 'border-gray-300 hover:border-blue-400 text-slate-700 dark:text-black',
+                    !enabledMetodePembayaranList.includes(m.label) ? 'opacity-50 cursor-not-allowed' : ''
+                  ]"
+                >
+                  <template v-if="m.img">
+                    <img :src="m.img" :alt="m.label" class="w-6 h-6" />
+                  </template>
+                  <template v-else>
+                    <i :class="m.icon + ' text-lg'" />
+                  </template>
+                  <span>{{ m.label }}</span>
                 </button>
               </div>
             </div>
@@ -311,7 +351,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import navbar from '@/components/navbar/navbar.vue';
 import switcher from '@/components/switcher.vue';
 import footers from '@/components/footer/footer.vue'
@@ -339,8 +379,29 @@ const licenseImages = ref([
 ])
 
 const selectedModel = ref(1)
+const selectedLicenseType = ref('')
+const selectedMetodePembayaran = ref('')
 
 const selectedImage = ref(licenseImages.value[0])
+
+const metodePembayaranList = [
+  { key: 'rekber', label: 'Rekber', icon: 'mdi mdi-bank', img: null },
+  { key: 'tokped', label: 'Tokopedia', icon: null, img: tokopedia },
+  { key: 'shopee', label: 'Shopee', icon: null, img: shopee },
+  { key: 'tiktok', label: 'Tiktok', icon: null, img: tiktok },
+]
+
+const enabledMetodePembayaranList = computed(() => {
+  let pembayaran = license.value?.pembayaran || {}
+  if (typeof pembayaran === 'string') {
+    try {
+      pembayaran = JSON.parse(pembayaran)
+    } catch (e) {
+      pembayaran = {}
+    }
+  }
+  return metodePembayaranList.filter(m => pembayaran[m.key] === 'YES').map(m => m.label)
+})
 
 function prevImage() {
   let index = licenseImages.value.findIndex(img => img === selectedImage.value)
@@ -376,6 +437,13 @@ function toggle2() {
 function handleBuyNow() {
   isActive2.value = true
 }
+
+// Fungsi untuk mengubah newline (\n) menjadi <br>
+function formatNewline(text) {
+  if (!text) return '';
+  return text.replace(/\n/g, '<br>');
+}
+
 
 onMounted(async () => {
   if (id.value) {
