@@ -4,8 +4,8 @@
 
         </div><!--end container-->
     
-        <div v-else class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-10 gap-[30px]">
-            <div v-for="product in setProductData.slice(0, 8)" :key="product.id" class="group relative overflow-hidden p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 hover:-mt-2 h-fit flex flex-col justify-between min-h-[410px]">
+        <div v-else class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 mt-10 gap-[30px]">
+            <div v-for="product in setProductData.slice(0, 4)" :key="product.id" class="group relative overflow-hidden p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 hover:-mt-2 h-fit flex flex-col justify-between min-h-[410px]">
                 <div class="flex-1 flex flex-col justify-between">
                     <div>
                         <div class="relative overflow-hidden rounded-lg">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="flex justify-between items-center p-2 bg-gray-50 dark:bg-slate-800 rounded-lg shadow dark:shadow-gray-700 mt-1">
                     <span class="text-[16px] font-medium text-slate-400">Harga</span>
-                    <span class="text-[18px] font-bold text-violet-700 flex items-center"><i class="mdi mdi-cash mr-1"></i>{{ formatRupiah(product.price) }}</span>
+                    <span class="text-[18px] font-bold text-violet-700 flex items-center">{{ formatRupiah(product.price) }}</span>
                 </div>
             </div><!--end content-->
         </div><!--end grid-->

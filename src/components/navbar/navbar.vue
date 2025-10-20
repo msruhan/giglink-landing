@@ -1,6 +1,16 @@
 <template>
+        <!-- Top Bar for Mobile: Cart & Profile -->
+        <nav class="fixed top-0 left-0 right-0 bg-white dark:bg-slate-900 shadow p-2 border-b border-gray-200 dark:border-gray-800 sm:hidden z-50 flex justify-between items-center">
+            <router-link to="/cart" class="flex items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-shopping-cart text-2xl"></i>
+            </router-link>
+            <router-link to="/creator-profile" class="flex items-center">
+                <img src="../../assets/images/client/05.jpg" class="rounded-full w-8 h-8 object-cover border-2 border-violet-600" alt="Profile">
+            </router-link>
+        </nav>
     <!-- Start Navbar -->
-    <nav id="topnav" class="defaultscroll is-sticky">
+    <!-- <nav id="topnav" class="defaultscroll is-sticky"> -->
+        <nav id="topnav" class="defaultscroll is-sticky hidden sm:block">
         <div class="container">
             <!-- Logo container-->
             <router-link v-if="logoLight" class="logo ps-0" to="/">
@@ -219,6 +229,41 @@
             </div><!--end navigation-->
         </div><!--end container-->
     </nav><!--end header-->
+
+
+    <!-- Bottom Navbar for Mobile -->
+<nav
+    class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 shadow-t p-2 border-t border-gray-200 dark:border-gray-800 sm:hidden z-50"
+>
+    <ul class="flex justify-around items-center text-center">
+        <li>
+            <router-link to="/beranda" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-home text-xl"></i>
+                <span class="text-xs">Beranda</span>
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/explore-marketplace" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-shopping-bag text-xl"></i>
+                <span class="text-xs">Belanja</span>
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/explore-workshop" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-wrench text-xl"></i>
+                <span class="text-xs">Workshop</span>
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/explore-teknisi" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-user text-xl"></i>
+                <span class="text-xs">Akun</span>
+            </router-link>
+        </li>
+    </ul>
+</nav>
+
+
     <!-- End Navbar -->
 
 </template>
@@ -318,4 +363,26 @@ export default {
 }
 
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.shadow-t {
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shadow {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 640px) {
+    body {
+        padding-bottom: 70px; /* tinggi navbar bawah */
+        padding-top: 56px; /* tinggi navbar atas */
+    }
+}
+
+/* Tambah padding bawah agar konten tidak ketutup navbar */
+@media (max-width: 640px) {
+    body {
+        padding-bottom: 70px; /* tinggi navbar bawah */
+    }
+}
+</style>

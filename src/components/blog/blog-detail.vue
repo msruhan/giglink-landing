@@ -70,14 +70,212 @@
             </button>
         </div>
         <!-- iframe end  -->
+
+                <div class="container mt-10">
+                    <div class="lg:w-3/5 mx-auto">
+                        <h4 class="text-2xl font-bold mb-8">Diskusi & Komentar</h4>
+
+                        <!-- Komentar utama -->
+                        <div
+                            v-for="comment in comments"
+                            :key="comment.id"
+                            class="mb-8 border-b border-slate-200 pb-6"
+                        >
+                            <div class="flex items-start gap-3">
+                                <img
+                                    :src="comment.avatar"
+                                    class="rounded-full w-12 h-12 object-cover"
+                                />
+                                <div class="flex-1">
+                                    <div class="font-semibold text-violet-700">
+                                        {{ comment.name }}
+                                    </div>
+                                    <div class="text-xs text-slate-400 mb-1">
+                                        {{ comment.time }}
+                                    </div>
+                                    <div
+                                        class="text-base text-slate-700 dark:text-slate-200 mb-2"
+                                    >
+                                        {{ comment.text }}
+                                    </div>
+                                    <button
+                                        @click="toggleReply(comment)"
+                                        class="text-sm text-violet-600 hover:underline"
+                                    >
+                                        {{ comment.showReply ? 'Batal' : 'Balas' }}
+                                    </button>
+
+                                    <!-- Balasan -->
+                                    <div
+                                        v-for="reply in comment.replies"
+                                        :key="reply.id"
+                                        class="flex items-start gap-3 mt-4 ml-8"
+                                    >
+                                        <img
+                                            :src="reply.avatar"
+                                            class="rounded-full w-10 h-10 object-cover"
+                                        />
+                                        <div>
+                                            <div class="font-semibold text-violet-700">
+                                                {{ reply.name }}
+                                            </div>
+                                            <div class="text-xs text-slate-400 mb-1">
+                                                {{ reply.time }}
+                                            </div>
+                                            <div
+                                                class="text-base text-slate-700 dark:text-slate-200"
+                                            >
+                                                {{ reply.text }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Form Balasan -->
+                                    <div v-if="comment.showReply" class="mt-4 ml-8">
+                                        <textarea
+                                            v-model="comment.replyText"
+                                            placeholder="Tulis balasan..."
+                                            class="w-full rounded-lg border border-gray-300 px-3 py-2 mb-2"
+                                        ></textarea>
+                                        <button
+                                            @click="addReply(comment)"
+                                            class="btn bg-violet-600 text-white rounded-lg px-4 py-1 text-sm"
+                                        >
+                                            Kirim
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tambah komentar baru -->
+                        <form @submit.prevent="addComment" class="mt-8 border-t border-slate-200 pt-6">
+                            <h5 class="text-lg font-semibold mb-3">Tulis Komentar Baru</h5>
+                            <div class="flex items-center gap-4 mb-2">
+                                <img
+                                    src="../../assets/images/avatar/6.jpg"
+                                    class="rounded-full w-12 h-12 object-cover"
+                                />
+                                <input
+                                    v-model="newComment.name"
+                                    type="text"
+                                    placeholder="Nama Anda"
+                                    class="form-input w-1/3 rounded-xl border border-gray-300 px-3 py-2"
+                                    required
+                                />
+                            </div>
+                            <textarea
+                                v-model="newComment.text"
+                                placeholder="Tulis komentar..."
+                                class="form-input w-full rounded-xl border border-gray-300 px-3 py-2 mb-2"
+                                required
+                            ></textarea>
+                            <button
+                                type="submit"
+                                class="btn bg-violet-600 text-white rounded-xl px-6 py-2 font-semibold"
+                            >
+                                Kirim Komentar
+                            </button>
+                        </form>
+                    </div>
+                </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from "vue";
 import { useRoute } from 'vue-router';
 import image from '../../assets/images/blog/single.jpg'
 
+// ✅ Data dummy komentar
+const comments = ref([
+    {
+        id: 1,
+        name: "Rizal Pratama",
+        avatar: require("../../assets/images/avatar/6.jpg"),
+        text: "Artikel ini sangat bermanfaat, terima kasih!",
+        time: "20 Okt 2025, 10:15",
+        showReply: false,
+        replyText: "",
+        replies: [
+            {
+                id: 11,
+                name: "Dewi Lestari",
+                avatar: require("../../assets/images/avatar/7.jpg"),
+                text: "Setuju banget Rizal, saya juga suka bagian penjelasan NFT-nya!",
+                time: "20 Okt 2025, 11:45",
+            },
+        ],
+    },
+    {
+        id: 2,
+        name: "Dewi Lestari",
+        avatar: require("../../assets/images/avatar/7.jpg"),
+        text: "NFT memang masa depan digital!",
+        time: "20 Okt 2025, 11:02",
+        showReply: false,
+        replyText: "",
+        replies: [],
+    },
+]);
+
+// ✅ Komentar baru
+const newComment = reactive({
+    name: "",
+    text: "",
+});
+
+// ✅ Tambah komentar baru
+function addComment() {
+    if (!newComment.name || !newComment.text) return;
+
+    comments.value.push({
+        id: Date.now(),
+        name: newComment.name,
+        avatar: require("../../assets/images/avatar/6.jpg"),
+        text: newComment.text,
+        time: new Date().toLocaleString("id-ID", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        }),
+        showReply: false,
+        replyText: "",
+        replies: [],
+    });
+
+    newComment.name = "";
+    newComment.text = "";
+}
+
+// ✅ Toggle form balasan
+function toggleReply(comment) {
+    comment.showReply = !comment.showReply;
+}
+
+// ✅ Tambah balasan ke komentar tertentu
+function addReply(comment) {
+    if (!comment.replyText) return;
+
+    comment.replies.push({
+        id: Date.now(),
+        name: "Anda",
+        avatar: require("../../assets/images/avatar/6.jpg"),
+        text: comment.replyText,
+        time: new Date().toLocaleString("id-ID", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        }),
+    });
+
+    comment.replyText = "";
+    comment.showReply = false;
+}
 const route = useRoute();
 const id = ref('')
 const data = ref('')
