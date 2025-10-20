@@ -118,10 +118,22 @@
               >{{ product.kondisi.toUpperCase() }}</span>
             </div>
             <h1 class="md:text-3xl text-2xl font-bold mb-2">{{ product?.title || '' }}</h1>
-            <div class="flex items-center gap-3 mb-4">
-              <span class="text-blue-600 font-semibold text-lg">{{ formatRupiah(product?.price) }}</span>
-              <span class="text-xs text-slate-400">{{ product?.views || 0 }}x dilihat</span>
-              <span class="flex items-center text-xs text-yellow-500"><i class="mdi mdi-star"></i> {{ product?.rating || 0 }}/5</span>
+            <div class="flex items-center gap-4 mb-4">
+              <span class="text-blue-600 font-bold text-2xl">{{ formatRupiah(product?.price) }}</span>
+              <div class="flex gap-2">
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-xs text-slate-600 font-medium">
+                  <i class="mdi mdi-cart-outline text-base text-blue-500"></i>
+                  Terjual {{ product?.sold || 0 }}x
+                </span>
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-xs text-slate-600 font-medium">
+                  <i class="mdi mdi-eye-outline text-base text-green-500"></i>
+                  {{ product?.views || 0 }}x dilihat
+                </span>
+                <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-yellow-100 text-xs text-yellow-700 font-medium">
+                  <i class="mdi mdi-star text-base"></i>
+                  {{ product?.rating || 0 }}/5
+                </span>
+              </div>
             </div>
             <div>
               <div class="flex gap-2 mb-4">
@@ -212,14 +224,26 @@
                   @click="enabledMetodePembayaranList.includes(m) ? selectedMetodePembayaran = m : null"
                   :disabled="!enabledMetodePembayaranList.includes(m)"
                   :class="[
-                    'border rounded-lg py-3 px-4 text-center font-medium transition',
+                    'border rounded-lg py-3 px-4 text-center font-medium transition flex items-center justify-center gap-2',
                     selectedMetodePembayaran === m
                       ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50 text-black dark:text-black'
                       : 'border-gray-300 hover:border-blue-400 text-slate-700',
                     !enabledMetodePembayaranList.includes(m) ? 'opacity-50 cursor-not-allowed' : ''
                   ]"
                 >
-                  {{ m }}
+                  <template v-if="m === 'Tokopedia'">
+                    <img :src="tokopedia" alt="Tokopedia" class="w-6 h-6" />
+                  </template>
+                  <template v-else-if="m === 'Shopee'">
+                    <img :src="shopee" alt="Shopee" class="w-6 h-6" />
+                  </template>
+                  <template v-else-if="m === 'Tiktok'">
+                    <img :src="tiktok" alt="Tiktok" class="w-6 h-6" />
+                  </template>
+                  <template v-else>
+                    <i class="mdi mdi-bank text-xl text-blue-700"></i>
+                  </template>
+                  <span>{{ m }}</span>
                 </button>
               </div>
             </div>
@@ -364,6 +388,9 @@ import { useRoute } from 'vue-router';
 import image from '@/assets/images/items/3.gif'
 import avatarDefault from '@/assets/images/avatar/3.jpg'
 import { useProductStore } from '@/stores/storeProduct'
+import tokopedia from '@/assets/images/tokopedia.png'
+import shopee from '@/assets/images/shopee.png'
+import tiktok from '@/assets/images/tiktok.png'
 
 const route = useRoute();
 const id = ref(route.params.id)

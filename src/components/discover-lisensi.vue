@@ -25,7 +25,7 @@
                     <div class="mt-3">
                         <div class="my-3 flex items-center gap-3">
                             <div>
-                                <div class="font-semibold text-lg hover:text-violet-600 line-clamp-2 min-h-[48px]">{{ license.name || '-' }}</div>
+                                <div class="font-semibold text-lg hover:text-violet-600 line-clamp-2 min-h-[48px]">{{ license.title || '-' }}</div>
                                 <div class="flex items-center gap-2 text-xs text-slate-400 mt-1">
                                     <i class="mdi mdi-eye"></i> {{ license.views || 0 }}x dilihat
                                     <span class="ml-3 flex items-center"><i class="mdi mdi-star text-yellow-400"></i> {{ license.rating || 0 }}/5</span>
