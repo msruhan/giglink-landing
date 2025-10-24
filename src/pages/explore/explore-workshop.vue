@@ -11,11 +11,15 @@
                 </div><!--end grid-->
             </div><!--end container-->
             
-            <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
-                <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
-                   <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><router-link to="/">Giglink</router-link></li>
-                    <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">Explore</li>
-                </ul>
+             <div class="grid grid-cols-1 items-center gap-[30px]">
+                    <div class="filters-group-wrap text-center">
+                        <div class="filters-group">
+                            <ul class="mb-0 list-none container-filter-box filter-options">
+                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"  :class="selectedCategory == null ? 'active' : ''" @click="$router.push('/explore-workshop')"><i class="uil uil-browser"></i> Workshop</li>
+                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500" :class="selectedCategory == 'teknisi' ? 'active' : ''" @click="$router.push('/explore-teknisi')"><i class="uil uil-volleyball"></i> Teknisi</li>
+                            </ul>
+                        </div>
+                    </div>
             </div>
         </section><!--end section-->
 

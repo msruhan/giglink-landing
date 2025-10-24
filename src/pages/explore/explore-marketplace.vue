@@ -11,6 +11,16 @@
                     <h3 class="text-xl md:text-3xl md:leading-snug tracking-wide leading-snug font-medium text-black">Pusat Produk / Barang</h3>
                 </div>
             </div>
+                <div class="grid grid-cols-1 items-center gap-[30px]">
+                    <div class="filters-group-wrap text-center">
+                        <div class="filters-group">
+                            <ul class="mb-0 list-none container-filter-box filter-options">
+                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"  :class="selectedCategory == null ? 'active' : ''" @click="$router.push('/explore-marketplace')"><i class="uil uil-browser"></i> Produk</li>
+                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500" :class="selectedCategory == 'license' ? 'active' : ''" @click="$router.push('/explore-lisensi')"><i class="uil uil-volleyball"></i> Lisensi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
         </section>
 
         <div class="relative md:block hidden">
@@ -32,7 +42,7 @@
 
         <switcher />
         
-        <footers />
+        <!-- <footers /> -->
     </div>
 </template>
 

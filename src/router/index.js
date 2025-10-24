@@ -74,12 +74,12 @@ const routes = [
   {
     path: "/item-detail",
     name: "item-details",
-    component: () => import('@/pages/explore/item-detail.vue'),
+    component: () => import('@/pages/explore/details-product.vue'),
   },
   {
     path: "/item-detail/:id",
     name: "item-detail",
-    component: () => import('@/pages/explore/item-detail.vue'),
+    component: () => import('@/pages/explore/details-product.vue'),
   },
     {
     path: "/details-license/:id",

@@ -82,7 +82,7 @@
               </div>
 
               <!-- Bagikan ke Sosial Media -->
-              <div class="mt-8 border-t pt-6">
+              <div class="mt-8 border-t pt-6 hidden sm:flex">
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                       <!-- Bagikan -->
                       <div>
