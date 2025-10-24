@@ -1,12 +1,12 @@
 <template>
         <!-- Top Bar for Mobile: Cart & Profile -->
-        <nav class="fixed top-0 left-0 right-0 bg-white dark:bg-slate-900 shadow p-2 border-b border-gray-200 dark:border-gray-800 sm:hidden z-50 flex justify-between items-center">
+        <nav class="fixed top-0 right-0 bg-white dark:bg-slate-900 p-2 border-b border-gray-200 dark:border-gray-800 sm:hidden z-50 flex justify-between items-center mt-2 mr-2">
             <router-link to="/cart" class="flex items-center text-gray-600 dark:text-gray-300">
                 <i class="uil uil-shopping-cart text-2xl"></i>
             </router-link>
-            <router-link to="/creator-profile" class="flex items-center">
+            <!-- <router-link to="/creator-profile" class="flex items-center">
                 <img src="../../assets/images/client/05.jpg" class="rounded-full w-8 h-8 object-cover border-2 border-violet-600" alt="Profile">
-            </router-link>
+            </router-link> -->
         </nav>
     <!-- Start Navbar -->
     <!-- <nav id="topnav" class="defaultscroll is-sticky"> -->
@@ -243,19 +243,25 @@
             </router-link>
         </li>
         <li>
-            <router-link to="/explore-marketplace" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
-                <i class="uil uil-shopping-bag text-xl"></i>
-                <span class="text-xs">Belanja</span>
-            </router-link>
-        </li>
-        <li>
             <router-link to="/explore-workshop" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
                 <i class="uil uil-wrench text-xl"></i>
                 <span class="text-xs">Workshop</span>
             </router-link>
         </li>
         <li>
-            <router-link to="/explore-teknisi" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+            <router-link to="/explore-marketplace" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-shopping-bag text-xl"></i>
+                <span class="text-xs">Belanja</span>
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/blogs" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
+                <i class="uil uil-chat text-xl"></i>
+                <span class="text-xs">Blog</span>
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/creator-profile-edit" class="flex flex-col items-center text-gray-600 dark:text-gray-300">
                 <i class="uil uil-user text-xl"></i>
                 <span class="text-xs">Akun</span>
             </router-link>
@@ -307,7 +313,12 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
         document.addEventListener('click', this.handleClickOutside);
         feather.replace();
-        this.scrollToTop()
+        this.scrollToTop();
+        // Always keep nav-sticky on mobile
+        const navbar = document.getElementById("topnav");
+        if (window.innerWidth < 640 && navbar) {
+            navbar.classList.add("nav-sticky");
+        }
     },
     unmounted() {
         window.removeEventListener('scroll', this.handleScroll);
@@ -324,6 +335,11 @@ export default {
         },
         handleScroll() {
             const navbar = document.getElementById("topnav");
+            if (!navbar) return;
+            if (window.innerWidth < 640) {
+                navbar.classList.add("nav-sticky");
+                return;
+            }
             if (
                 document.body.scrollTop >= 50 ||
                 document.documentElement.scrollTop >= 50
