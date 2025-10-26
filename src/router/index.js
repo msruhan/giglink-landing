@@ -52,14 +52,14 @@ const routes = [
     component: () => import('@/pages/explore/explore-rekber.vue'),
   },
   {
-    path: "/explore-workshop",
-    name: "explore-workshop",
-    component: () => import('@/pages/explore/explore-workshop.vue'),
-  },
-   {
     path: "/explore-teknisi",
     name: "explore-teknisi",
     component: () => import('@/pages/explore/explore-teknisi.vue'),
+  },
+   {
+    path: "/explore-workshop",
+    name: "explore-workshop",
+    component: () => import('@/pages/explore/explore-workshop.vue'),
   },
   {
     path: "/creator-chat",

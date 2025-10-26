@@ -1,74 +1,102 @@
 <template>
-    <div>
-        <div v-if="discover" class="container md:mt-24 mt-16">
-         
-        </div>
-    
-        <div v-else-if="items" class="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-[30px]">
-
-        </div>
-
-        <div v-else-if="explore" class="grid lg:grid-cols-2 grid-cols-1 gap-[30px]">
-            <div v-for="product in setProductData" :key="product.id"  class="group relative p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 h-fit">
-                <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-violet-600 rounded-lg -mt-1 group-hover:-mt-2 -ms-1 group-hover:-ms-2 h-[98%] w-[98%] -z-1 transition-all duration-500"></div>
-                <div class="relative overflow-hidden">
-                    <div class="relative overflow-hidden rounded-lg">
-                        <img :src="product.image_url_1" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
-                    </div>
-                    
-                    <div class="absolute -bottom-20 group-hover:bottom-1/2 group-hover:translate-y-1/2 start-0 end-0 mx-auto text-center transition-all duration-500">
-                        <router-link :to="{name: 'item-detail', params: {id: product.id}}" class="btn btn-sm rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white"><i class="mdi mdi-lightning-bolt"></i> Buy Now</router-link>                                
-                    </div>
-
-                    <div class="absolute top-2 end-2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <a href="javascript:void(0)" class="btn btn-icon btn-sm rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white"><i class="mdi mdi-plus"></i></a>
-                    </div>
-
-                    <div  v-if="product.showdate === true"
-                    class="absolute bottom-2 start-0 end-0 mx-auto text-center bg-gradient-to-r from-violet-600 to-red-600 text-white inline-table text-lg px-3 rounded-full">
-                        <i class="uil uil-clock align-middle me-1"></i> <small id="auction-item-1" class="font-bold">{{product.remaining?.days + " : " + product.remaining?.hours + " : " + product.remaining?.minutes + " : " + product.remaining?.seconds }}</small>
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <!-- <div class="flex items-center">
-                        <img :src="product.image" class="rounded-full size-8" alt="">
-                        <router-link to="/creator-profile" class="ms-2 text-[15px] font-medium text-slate-400 hover:text-violet-600">{{ product.name}}</routerlink>
-                    </div> -->
-
-                    <div class="my-3 text-center">
-                        <router-link :to="{name: 'details-workshop', params: {id: product.id}}" class="font-semibold hover:text-violet-600">{{ product.name }}</router-link>
-                        <div class="text-xs text-slate-400 mt-1 flex items-center justify-center gap-1">
-                            <i class="mdi mdi-map-marker"></i> {{ product.location }}
+    <section class="relative md:py-24 py-16">
+        <div class="container">
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100">Daftar Teknisi Remote</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div
+                        v-for="tech in teknisiList"
+                        :key="tech.id"
+                        class="flex flex-col sm:flex-row justify-between items-center sm:items-center bg-white/80 dark:bg-slate-900/80 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 border border-violet-200 dark:border-violet-700 backdrop-blur-md hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 overflow-hidden relative w-full gap-4"
+                        style="min-width:0; max-width:100%;"
+                    >
+                        <div class="absolute top-0 left-0 bg-gradient-to-r from-violet-500 to-blue-400 text-white text-xs font-bold px-3 py-1 rounded-br-xl shadow z-10">Remote Service</div>
+                        <div class="flex items-center gap-4">
+                            <div class="relative flex-shrink-0">
+                                <img :src="tech.avatar" class="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl object-cover border-4 border-violet-300 shadow-lg" />
+                                <span :class="tech.online ? 'bg-green-500' : 'bg-slate-400'" class="absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-white flex items-center justify-center">
+                                    <i class="mdi mdi-check-circle text-white text-xs" v-if="tech.online"></i>
+                                    <i class="mdi mdi-minus-circle text-white text-xs" v-else></i>
+                                </span>
+                            </div>
+                            <div class="flex-1 w-full">
+                                <h4 class="font-bold text-base sm:text-lg lg:text-xl text-slate-800 dark:text-white flex items-center gap-2">
+                                    {{ tech.name }}
+                                    <span v-if="tech.online" class="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-bold ml-2">Online</span>
+                                    <span v-else class="px-2 py-0.5 rounded-full bg-slate-200 text-slate-500 text-xs font-bold ml-2">Offline</span>
+                                </h4>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    <span
+                                        v-for="(service, i) in tech.services"
+                                        :key="i"
+                                        class="text-xs bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full font-semibold shadow"
+                                    >
+                                        <i class="mdi mdi-wrench text-violet-400 mr-1"></i>{{ service }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center justify-center mt-1">
-                            <span v-for="n in 5" :key="n">
-                                <i v-if="n <= (product.rating || 0)" class="mdi mdi-star text-yellow-400"></i>
-                                <i v-else class="mdi mdi-star-outline text-yellow-400"></i>
-                            </span>
-                        </div>
-                        <div v-if="product.skills && product.skills.length" class="flex flex-wrap items-center justify-center gap-2 mt-2">
-                            <span v-for="(skill, idx) in product.skills" :key="idx" class="px-2 py-0.5 rounded-full bg-violet-600 text-white text-xs font-medium border border-violet-200">
-                                {{ skill }}
-                            </span>
+                        <div class="flex flex-col items-end sm:items-start gap-2 text-sm text-right sm:text-left mt-3 sm:mt-0">
+                            <div class="flex flex-col items-center sm:items-start gap-2 text-center sm:text-left mt-3 sm:mt-0 w-full">
+                                <p class="text-violet-600 dark:text-white font-bold text-sm sm:text-base lg:text-lg">{{ tech.price }}</p>
+                                <p class="text-slate-500 dark:text-white text-xs sm:text-sm lg:text-base">{{ tech.duration }}</p>
+                                <button @click="showDetail(tech)" type="button" class="mt-2 px-4 py-1 rounded-lg bg-violet-600 text-white hover:bg-violet-700 transition text-xs sm:text-sm font-semibold">Informasi Detail</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="flex justify-center items-center p-2 bg-violet-50 dark:bg-slate-800 rounded-lg shadow dark:shadow-gray-700">
-                        <router-link :to="{name: 'details-workshop', params: {id: product.id}}" class=" px-6 text-black text-base font-semibold transition">Lihat Profil</router-link>
-                    </div>
+                    <pagination />
                 </div>
             </div>
         </div>
 
+                <dialog
+                    v-if="selectedTech"
+                    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                >
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-xl p-6 w-full max-w-lg relative shadow-xl"
+                    >
+                        <button
+                            class="absolute top-3 right-3 text-slate-400 hover:text-red-500"
+                            @click="selectedTech = null"
+                        >
+                            <i class="mdi mdi-close text-xl"></i>
+                        </button>
 
+                        <div class="flex items-center gap-4 mb-4">
+                            <img :src="selectedTech.avatar" class="w-20 h-20 rounded-full object-cover" />
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-800 dark:text-white">
+                                    {{ selectedTech.name }}
+                                </h3>
+                                <p class="text-slate-500">{{ selectedTech.specialization }}</p>
+                                <span
+                                    :class="selectedTech.online ? 'text-green-500' : 'text-slate-400'"
+                                    class="text-sm font-medium"
+                                >
+                                    ● {{ selectedTech.online ? 'Online' : 'Offline' }}
+                                </span>
+                            </div>
+                        </div>
 
-        <div v-if="moreitem" class="grid grid-cols-1 mt-6">
-            <div class="text-center">
-                <router-link to="/explore-one" class="btn btn-link text-[16px] font-medium hover:text-violet-600 after:bg-violet-600 duration-500 ease-in-out">Explore More <i class="uil uil-arrow-right"></i></router-link>
-            </div>
-        </div>
-    </div>
+                        <div class="space-y-2 text-slate-600 dark:text-slate-300">
+                            <p><i class="mdi mdi-currency-usd"></i> <strong>Estimasi Biaya:</strong> {{ selectedTech.price }}</p>
+                            <p><i class="mdi mdi-timer-outline"></i> <strong>Proses Pengerjaan:</strong> {{ selectedTech.duration }}</p>
+                            <p><i class="mdi mdi-wrench-outline"></i> <strong>Layanan Remote:</strong></p>
+                            <ul class="list-disc list-inside pl-4">
+                                <li v-for="(srv, i) in selectedTech.services" :key="i">{{ srv }}</li>
+                            </ul>
+                            <p><i class="mdi mdi-laptop"></i> <strong>Tools:</strong> {{ selectedTech.tools }}</p>
+                        </div>
+
+                        <button
+                            class="mt-6 w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition"
+                        >
+                            <i class="mdi mdi-chat-outline"></i> Chat Sekarang
+                        </button>
+                    </div>
+                </dialog>
+    </section>
 </template>
 
 <script>
@@ -98,6 +126,53 @@ name: "ExploreOne",
 data() {
     return {
         setProductData: [],
+        teknisiList: [
+            {
+                id: 1,
+                name: "Budi Santoso",
+                specialization: "Software & Unlock Specialist",
+                price: "Rp100K - Rp250K",
+                duration: "30–60 menit",
+                online: true,
+                avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                services: ["Bypass FRP", "Flashing Firmware", "Unlock SIM", "Data Recovery"],
+                tools: "TeamViewer, AnyDesk",
+            },
+            {
+                id: 2,
+                name: "Rina Pratama",
+                specialization: "IC & Touchscreen Technician",
+                price: "Rp150K - Rp300K",
+                duration: "1–2 jam",
+                online: false,
+                avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                services: ["Flashing", "FRP Removal", "Touchscreen Repair"],
+                tools: "AnyDesk",
+            },
+            {
+                id: 3,
+                name: "Ardi Nugroho",
+                specialization: "Android Bootloader & FRP Expert",
+                price: "Rp120K - Rp200K",
+                duration: "20–40 menit",
+                online: true,
+                avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+                services: ["FRP Bypass", "Bootloader Unlock", "Google Account Remove"],
+                tools: "TeamViewer",
+            },
+            {
+                id: 4,
+                name: "Siti Rahma",
+                specialization: "Laptop & PC Specialist",
+                price: "Rp200K - Rp350K",
+                duration: "45–90 menit",
+                online: false,
+                avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+                services: ["Install Windows", "Virus Removal", "Data Backup"],
+                tools: "AnyDesk, TeamViewer",
+            },
+        ],
+        selectedTech: null,
         products: [
             {
                 id: 1,
@@ -292,6 +367,9 @@ beforeUnmount() {
     clearInterval(this._interval)
 },
 methods: {
+    showDetail(tech) {
+        this.selectedTech = tech;
+    },
     tickTock(date) {
         let startDate = new Date(date);
         let currentDate = new Date();

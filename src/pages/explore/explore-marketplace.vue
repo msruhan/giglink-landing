@@ -1,27 +1,57 @@
 <template>
     <div>
-        <navbar :navLight="'nav-light'" :logoLight=true  />
+        <navbar :navLight="'nav-dark'" :logoLight=true  />
         
         <!-- Start Hero -->
-        <!-- Start Hero (Simple for Mobile) -->
-        <section class="relative w-full py-20 md:py-36 bg-[url('../../assets/images/bg/bg1.jpg')] md:bg-bottom md:bg-no-repeat bg-none">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 md:block hidden"></div>
-            <div class="container">
-                <div class="grid grid-cols-1 pb-4 text-center mt-6 md:pb-8 md:mt-10">
-                    <h3 class="text-xl md:text-3xl md:leading-snug tracking-wide leading-snug font-medium text-black">Pusat Produk / Barang</h3>
-                </div>
+    <section class="relative md:pt-48 pt-36 overflow-hidden">
+        <div class="container hidden sm:block">
+                <div class="grid grid-cols-1 justify-center text-center mt-10">
+                    <div class="relative">
+                        <div class="relative mb-5">
+              <h1 class="font-bold lg:leading-snug leading-snug text-4xl lg:text-6x"><span class="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text">Pusat Handphone, Aksesoris dan Lainnya </span><br> Semua yang Anda Butuhkan Ada disini! </h1>
+
+              <div class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-top-[50px] after:start-[30%] after:-z-1 after:rounded-lg after:animate-[spin_10s_linear_infinite]"></div>
+
+              <div
+                class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/20 dark:after:bg-violet-600/40 after:bottom-[0] after:end-[15%] after:-z-1 after:rounded-full after:animate-ping">
+              </div>
             </div>
-                <div class="grid grid-cols-1 items-center gap-[30px]">
-                    <div class="filters-group-wrap text-center">
-                        <div class="filters-group">
-                            <ul class="mb-0 list-none container-filter-box filter-options">
-                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"  :class="selectedCategory == null ? 'active' : ''" @click="$router.push('/explore-marketplace')"><i class="uil uil-browser"></i> Produk</li>
-                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500" :class="selectedCategory == 'license' ? 'active' : ''" @click="$router.push('/explore-lisensi')"><i class="uil uil-volleyball"></i> Lisensi</li>
-                            </ul>
-                        </div>
+            <p class="text-slate-400 dark:text-white/70 text-lg max-w-xl mx-auto">Belanja smartphone, aksesoris, dan perangkat pendukung dengan mudah, aman, dan terpercaya!</p>
                     </div>
+                </div><!--end grid-->
+
+                <div class="relative animate-[spin_30s_linear_infinite] -z-1">
+                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
+                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
                 </div>
-        </section>
+        </div>
+      
+
+
+  <!-- Filter Tabs: Visible on All Screens, Above Hero -->
+  <div class="grid grid-cols-1 items-center gap-[30px] mb-10 mt-0 sm:mt-10">
+        <div class="filters-group-wrap text-center">
+          <div class="filters-group">
+            <ul class="mb-0 list-none container-filter-box filter-options">
+              <li
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
+                :class="selectedCategory == null ? 'active' : ''"
+                @click="$router.push('/explore-workshop')"
+              >
+                <i class="uil uil-browser"></i> Workshop
+              </li>
+              <li
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
+                :class="selectedCategory == 'teknisi' ? 'bg-violet-600 text-white border-violet-600' : 'text-slate-400'"
+                @click="$router.push('/explore-teknisi')"
+              >
+                <i class="uil uil-volleyball" :class="selectedCategory == 'teknisi' ? 'text-white' : ''"></i> Teknisi
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
         <div class="relative md:block hidden">
             <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
@@ -32,9 +62,9 @@
         </div>
         <!-- End Hero -->
 
-        <section class="relative md:pb-24 pb-16 -mt-16">
+        <section class="relative">
             <searchbar />
-            <div class="container mt-16">
+            <div class="container">
                 <items :items=true />
                 <pagination />
             </div>
@@ -48,7 +78,7 @@
 
 <script setup>
 import navbar from '@/components/navbar/navbar.vue';
-import searchbar from '@/components/nft-searchbar.vue';
+import searchbar from '@/components/searchbarBelanja.vue';
 import items from '@/components/discover-marketplace.vue';
 import pagination from '@/components/pagination.vue';
 import switcher from '@/components/switcher.vue';

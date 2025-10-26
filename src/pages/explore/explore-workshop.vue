@@ -1,27 +1,58 @@
 <template>
     <div>
-        <navbar :navLight="'nav-light'" :logoLight=true />
+        <navbar :navLight="'nav-dark'" :logoLight=true />
 
-        <!-- Start Hero -->
-        <section class="relative table w-full py-36 bg-[url('../../assets/images/bg/bg1.jpg')] bg-bottom bg-no-repeat">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900"></div>
-            <div class="container">
-                <div class="grid grid-cols-1 pb-8 text-center mt-10">
-                    <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">Toko / Workshop</h3>
-                </div><!--end grid-->
-            </div><!--end container-->
-            
-             <div class="grid grid-cols-1 items-center gap-[30px]">
-                    <div class="filters-group-wrap text-center">
-                        <div class="filters-group">
-                            <ul class="mb-0 list-none container-filter-box filter-options">
-                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"  :class="selectedCategory == null ? 'active' : ''" @click="$router.push('/explore-workshop')"><i class="uil uil-browser"></i> Workshop</li>
-                                <li class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500" :class="selectedCategory == 'teknisi' ? 'active' : ''" @click="$router.push('/explore-teknisi')"><i class="uil uil-volleyball"></i> Teknisi</li>
-                            </ul>
-                        </div>
-                    </div>
+     
+    <!-- Start Hero -->
+      <section class="relative md:pt-48 pt-36 overflow-hidden">
+        <div class="container hidden sm:block">
+                <div class="grid grid-cols-1 justify-center text-center mt-10">
+                    <div class="relative">
+                        <div class="relative mb-5">
+              <h1 class="font-bold lg:leading-snug leading-snug text-4xl lg:text-6x">Temukan Workshop / Tempat Service  <br> Terbaik di <span class="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text"> Kota Anda</span></h1>
+
+              <div class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-top-[50px] after:start-[30%] after:-z-1 after:rounded-lg after:animate-[spin_10s_linear_infinite]"></div>
+
+              <div
+                class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/20 dark:after:bg-violet-600/40 after:bottom-[0] after:end-[15%] after:-z-1 after:rounded-full after:animate-ping">
+              </div>
             </div>
-        </section><!--end section-->
+              <p class="text-slate-400 dark:text-white/70 text-lg max-w-xl mx-auto">Temukan tempat service terpercaya untuk konsultasi dan perbaikan perangkat Anda dengan mudah, cepat dan aman!</p>
+                    </div>
+                </div><!--end grid-->
+
+                <div class="relative animate-[spin_30s_linear_infinite] -z-1">
+                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
+                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
+                </div>
+            </div>
+      
+
+      <!-- Filter Tabs -->
+      <div class="grid grid-cols-1 items-center gap-[30px] mt-10">
+        <div class="filters-group-wrap text-center">
+          <div class="filters-group">
+            <ul class="mb-0 list-none container-filter-box filter-options">
+              <li
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
+                :class="selectedCategory == null ? 'active' : ''"
+                @click="$router.push('/explore-workshop')"
+              >
+                <i class="uil uil-browser"></i> Workshop
+              </li>
+              <li
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
+                :class="selectedCategory == 'teknisi' ? 'bg-violet-600 text-white border-violet-600' : 'text-slate-400'"
+                @click="$router.push('/explore-teknisi')"
+              >
+                <i class="uil uil-volleyball" :class="selectedCategory == 'teknisi' ? 'text-white' : ''"></i> Teknisi
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Hero -->
 
         <div class="relative">
             <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
@@ -32,27 +63,18 @@
         </div>
         <!-- End Hero -->
 
-        <section class="relative md:py-24 py-16">
-            <div class="container">
-                <div class="grid lg:grid-cols-12 md:grid-cols-2 grid-cols-1 gap-[30px]">
-                  <searchbar :searchbar=true />
-                    <div class="lg:col-span-9">
-                      <discover :explore=true />
-                      <pagination /> 
-                    </div>
-                </div>
-            </div>
-        </section>
+        <discover :explore=true />
+        <pagination /> 
         
         <switcher />
 
-        <footers />
+        <!-- <footers /> -->
     </div>
 </template>
 
 <script setup>
 import navbar from '@/components/navbar/navbar.vue';
-import discover from '@/components/discover-workshop.vue';
+import discover from '@/components/discover-teknisi.vue';
 import pagination from '@/components/pagination.vue';
 import switcher from '@/components/switcher.vue';
 import footers from '@/components/footer/footer.vue';

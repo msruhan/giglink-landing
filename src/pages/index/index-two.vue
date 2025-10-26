@@ -1,22 +1,50 @@
 <template>
     <div>
-        <navbar />
+        <navbar />\
+
+        <!-- <hero /> -->
+        
         <!-- Start -->
-        <section class="relative lg:pt-24 pt-[74px] overflow-hidden">
+        <section class="relative lg:pt-24 pt-[74px] overflow-hidden bg-violet-700/10 dark:bg-violet-600/20">
             <div class="container-fluid lg:px-10 md:px-3 relative overflow-hidden">
                 <span class="absolute blur-[200px] w-[600px] h-[600px] rounded-full top-1/2 start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 bg-gradient-to-tl from-red-600/40 to-violet-600/40 dark:from-red-600/60 dark:to-violet-600/60"></span>
-                <div class="lg:py-24 py-[74px] md:rounded-lg shadow dark:shadow-gray-800 bg-violet-700/10 dark:bg-violet-600/20">
+                <div class="lg:py-24 py-[74px] md:rounded-lg shadow dark:shadow-gray-800">
                     <div class="container">
                         <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
                             <div class="md:col-span-7">
-                                <div class="md:me-6">
-                                    <h4 class="font-bold lg:leading-snug leading-snug text-4xl lg:text-6xl mb-4"><span class="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text">The Place Where Technicians</span> Connect, <br>Trade & Grow</h4>
-                                    <p class="text-lg max-w-xl">Marketplace dan Komunitas Teknisi Smartphone Indonesia — Jual alat servis, cari jasa, ikuti workshop, dan diskusi bareng ribuan teknisi aktif!</p>
+                              <div class="max-w-2xl text-center lg:text-left">
+                                <h1
+                                    class="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-relaxed mb-6">
+                                    <span class="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text">The Place Where Technicians</span> Connect, <br>Trade & Grow
+                                </h1>
+                                <p class="text-lg max-w-xl ml-2">Marketplace dan Komunitas Teknisi Smartphone Indonesia — Pusat smartphone, alat servis, lisensi software, cari jasa dan diskusi bareng ribuan teknisi aktif!</p>
 
-                                    <div class="mt-6">
-                                        <router-link to="/explore-two" class="btn bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white rounded-full me-2 mt-2">Explore Marketplace</router-link>
-                                        <router-link to="/upload-work" class="btn bg-transparent hover:bg-violet-600 border-violet-600 text-violet-600 hover:text-white rounded-full mt-2">Join Community</router-link>
+                                    <div class="mt-10 mb-4">
+                                        <router-link to="/explore-two" class="px-6 py-3 bg-gradient-to-r from-violet-400 to-pink-300 text-white font-semibold rounded-full shadow-sm hover:shadow-md transition mr-2">Explore Marketplace</router-link>
+                                    <router-link to="/upload-work" class="px-6 py-3 bg-white text-black font-semibold rounded-full shadow-sm hover:shadow-md transition mt-2">Join Community</router-link>
                                     </div>
+                                    
+                                    <div class="grid md:grid-cols-3 text-center mr-2">
+                                        <div class="p-6 flex flex-col items-center">
+                                            <div class="w-full flex flex-col items-start">
+                                                <div class="text-3xl font-bold text-violet-600 mb-1">4000+</div>
+                                                <div class="text-slate-600 dark:text-slate-200">Anggota</div>
+                                            </div>
+                                        </div>
+                                           <div class="p-6 flex flex-col items-center">
+                                            <div class="w-full flex flex-col items-start">
+                                                <div class="text-3xl font-bold text-violet-600 mb-1">100+</div>
+                                                <div class="text-slate-600 dark:text-slate-200">Produk Terjual</div>
+                                            </div>
+                                        </div>
+                                           <div class="p-6 flex flex-col items-center">
+                                            <div class="w-full flex flex-col items-start">
+                                                <div class="text-3xl font-bold text-violet-600 mb-1">100+</div>
+                                                <div class="text-slate-600 dark:text-slate-200">Transaksi Rekber</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div
                                     class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-bottom-[50px] after:start-[30%] after:-z-1 after:rounded-full after:animate-ping">
@@ -29,36 +57,9 @@
                 </div><!--end -->
             </div><!--end container fluid-->
         </section><!--end section-->
-        <!-- Statistik -->
-        <!-- Searchbar di tengah antar section -->
-        <div class="flex justify-center -mt-10">
-            <searchbar />
-        </div>
 
-          <div class="container mt-10">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div class="bg-white dark:bg-slate-900 rounded-lg shadow p-6 flex flex-col items-center">
-                    <span class="mdi mdi-account-group text-4xl text-violet-600 mb-2"></span>
-                    <div class="text-3xl font-bold text-violet-600 mb-2">4000+</div>
-                    <div class="text-slate-600 dark:text-slate-200">Anggota</div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 rounded-lg shadow p-6 flex flex-col items-center">
-                    <span class="mdi mdi-school text-4xl text-violet-600 mb-2"></span>
-                    <div class="text-3xl font-bold text-violet-600 mb-2">100+</div>
-                    <div class="text-slate-600 dark:text-slate-200">Workshop</div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 rounded-lg shadow p-6 flex flex-col items-center">
-                    <span class="mdi mdi-cart text-4xl text-violet-600 mb-2"></span>
-                    <div class="text-3xl font-bold text-violet-600 mb-2">100+</div>
-                    <div class="text-slate-600 dark:text-slate-200">Produk Terjual</div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 rounded-lg shadow p-6 flex flex-col items-center">
-                    <span class="mdi mdi-shield-check text-4xl text-violet-600 mb-2"></span>
-                    <div class="text-3xl font-bold text-violet-600 mb-2">100+</div>
-                    <div class="text-slate-600 dark:text-slate-200">Transaksi Rekber</div>
-                </div>
-            </div>
-        </div>
+ 
+                <!-- <hero /> -->
         <!-- End -->
         <section class="relative md:py-24 py-16">
             <div class="container">
@@ -107,6 +108,7 @@
 
             </div>
             
+            
 
             <div class="container md:mt-24 mt-16">
                 <destination />
@@ -115,12 +117,18 @@
            
 
             <discover :discover=true :moreitem=true />
-
+            
             <blog />
 
-            <testimoni />
+            <testimonial />
+
+            <benefit />
+
+            <empower />
 
             <getintouch />
+
+            
 
             
 
@@ -135,9 +143,10 @@
 
 <script setup>
 import navbar from '@/components/navbar/navbar.vue';
+import hero from '@/components/hero.vue';
 import nftslider from '@/components/nft-slider.vue'
 import switcher from '@/components/switcher.vue';
-import testimoni from '@/components/testimoni.vue';
+import testimonial from '@/components/testimonial.vue';
 import searchbar from '@/components/nft-searchbar.vue';
 import creators from '@/components/best-creators.vue';
 import destination from '@/components/giglink-destination.vue';
@@ -146,5 +155,7 @@ import blog from '@/components/blog/latest-blog.vue';
 import getintouch from '@/components/get-in-touch.vue';
 import footers from '@/components/footer/footer.vue'
 import bestWorkshopSlider from '@/components/best-workshop-slider.vue';
+import benefit from '@/components/benefit.vue';
+import empower from '@/components/empower.vue';
 
 </script>

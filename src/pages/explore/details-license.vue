@@ -110,9 +110,10 @@
               <span v-else-if="license.condition === 'second'" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-orange-100 text-orange-700">SECOND</span>
             </div>
             <h1 class="md:text-3xl text-2xl font-bold mb-2">{{ license?.title || '' }}</h1>
-            <div class="flex items-center gap-4 mb-4">
+                 <div class="flex items-center gap-4 mb-4">
               <span class="text-blue-600 font-bold text-2xl">{{ formatRupiah(license?.price) }}</span>
-              <div class="flex gap-2">
+            </div>
+            <div class="flex gap-2 mb-4">
                 <span class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-xs text-slate-600 font-medium">
                   <i class="mdi mdi-cart-outline text-base text-blue-500"></i>
                   Terjual {{ license?.sold || 0 }}x
@@ -126,7 +127,6 @@
                   {{ license?.rating || 0 }}/5
                 </span>
               </div>
-            </div>
             <div>
               <div class="flex gap-2 mb-4">
                 <button @click="activeTab = 'deskripsi'" :class="activeTab === 'deskripsi' ? 'bg-blue-900 text-white' : 'bg-gray-100 text-slate-600'" class="px-4 py-2 rounded-t-md font-semibold focus:outline-none">Deskripsi</button>

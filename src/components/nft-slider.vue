@@ -21,6 +21,38 @@
                 </div>
             </div>
 
+                    <!-- Left Content -->
+            <div class="max-w-2xl text-center lg:text-left">
+
+            <!-- ⭐ Trustpilot Section -->
+            <div class="flex items-center gap-2 mt-4 justify-center lg:justify-start animate-fade-in ml-2">
+                <img
+                    src="@/assets/images/trustpilot.png"
+                    alt="Trustpilot"
+                    class="h-12"
+                />
+                <div class="flex items-center text-yellow-400 text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/>
+                    </svg>
+                </div>
+                <span class="text-gray-700 font-medium ml-2">100+ 5 Stars</span>
+                </div>
+            </div>
+
+
             <div
                 class="overflow-hidden after:content-[''] after:absolute after:h-14 after:w-14 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-top-[50px] after:start-[30%] after:-z-1 after:rounded-lg after:animate-[spin_10s_linear_infinite]">
             </div>

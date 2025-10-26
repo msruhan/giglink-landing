@@ -1,171 +1,300 @@
 <template>
-    <div>
-        <div v-if="explore" class="grid lg:grid-cols-1 grid-cols-1 gap-[30px]">
-            <div v-for="product in setProductData" :key="product.id"  class="group relative p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 h-fit">
-                <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-violet-600 rounded-lg -mt-1 group-hover:-mt-2 -ms-1 group-hover:-ms-2 h-[98%] w-[98%] -z-1 transition-all duration-500"></div>
-                <div class="relative overflow-hidden">
-                    <div class="relative overflow-hidden flex flex-col md:flex-row items-center md:items-start p-4 gap-6">
-                        <div class="relative flex-shrink-0 flex items-center justify-center w-full md:w-48">
-                            <img :src="product.image_url" class="rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-105 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 bg-gray-100" alt="">
-                            <div v-if="product.showdate === true" class="absolute bottom-2 left-1/2 -translate-x-1/2 text-center bg-gradient-to-r from-violet-600 to-red-600 text-white inline-table text-lg px-3 rounded-full">
-                                <i class="uil uil-clock align-middle me-1"></i> <small class="font-bold">{{product.remaining?.days + " : " + product.remaining?.hours + " : " + product.remaining?.minutes + " : " + product.remaining?.seconds }}</small>
-                            </div>
-                        </div>
-                        <div class="flex-1 w-full">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                                <div>
-                                    <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="font-semibold text-2xl hover:text-violet-600">{{ product.display_name }}</router-link>
-                                    <div class="text-xs text-slate-400 mt-1 flex items-center gap-1">
-                                        <i class="mdi mdi-map-marker"></i> {{ product.location }}
-                                    </div>
-                                    <div class="flex items-center mt-1">
-                                        <span v-for="n in 5" :key="n">
-                                            <i v-if="n <= (product.rating || 0)" class="mdi mdi-star text-yellow-400"></i>
-                                            <i v-else class="mdi mdi-star-outline text-yellow-400"></i>
-                                        </span>
-                                    </div>
-                                    <div v-if="product.skills && product.skills.length" class="flex flex-wrap items-center gap-2 mt-2">
-                                        <span
-                                          v-for="(skill, idx) in (Array.isArray(product.skills) ? product.skills : product.skills.split(','))"
-                                          :key="idx"
-                                          class="px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 text-xs font-medium border border-violet-200"
-                                        >
-                                          {{ skill.trim() }}
-                                        </span>
-                                    </div>
-                                    <div class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                                        {{ product.short_description }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap gap-3 mt-4">
-                                <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="btn btn-sm rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white flex items-center"><i class="mdi mdi-lightning-bolt mr-1"></i> Hubungi</router-link>
-                                <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="btn btn-sm rounded-full bg-gray-200 dark:bg-slate-800 text-violet-700 dark:text-white border border-violet-200 dark:border-slate-700 hover:bg-violet-600 hover:text-white hover:border-violet-600 transition">Lihat Profil</router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div>
+    <!-- Main Section -->
+    <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-4 gap-10">
+      
+
+      <!-- Filter Sidebar: Desktop -->
+      <aside class="bg-white dark:bg-slate-900 shadow-xl rounded-2xl p-6 h-fit border border-gray-200 dark:border-slate-700 hidden sm:block">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-4">Filter Pencarian</h3>
+        <div class="mb-5">
+          <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Search your keyword</label>
+          <input type="text" v-model="filters.keyword" class="w-full p-2 border rounded-lg dark:bg-slate-800 dark:text-white" placeholder="Search your keyword..." />
+        </div>
+        <div class="mb-5">
+          <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Kota</label>
+          <select v-model="filters.city" class="w-full p-2 border rounded-lg dark:bg-slate-800 dark:text-white">
+            <option value="">Semua Kota</option>
+            <option v-for="city in cities" :key="city" :value="city">{{ city }}</option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Status</label>
+          <div class="flex flex-col gap-2">
+            <label><input type="checkbox" value="online" v-model="filters.status" /> Online</label>
+            <label><input type="checkbox" value="offline" v-model="filters.status" /> Offline</label>
+          </div>
+        </div>
+        <div class="mb-5">
+          <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Layanan</label>
+          <div class="flex flex-col gap-2">
+            <label v-for="service in allServices" :key="service">
+              <input type="checkbox" :value="service" v-model="filters.services" /> {{ service }}
+            </label>
+          </div>
+        </div>
+        <button @click="resetFilters" class="w-full mt-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Reset Filter</button>
+      </aside>
+
+      <!-- Filter Button: Mobile -->
+      <div class="sm:hidden mb-4">
+        <button @click="showMobileFilter = true" class="w-full py-2 bg-violet-600 text-white rounded-lg font-semibold">Filter Pencarian</button>
+        <div v-if="showMobileFilter" class="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-11/12 max-w-sm mx-auto border border-gray-200 dark:border-slate-700">
+            <h3 class="text-lg font-semibold text-slate-800 dark:text-white mb-4">Filter Pencarian</h3>
+            <div class="mb-4">
+              <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Search your keyword</label>
+              <input type="text" v-model="filters.keyword" class="w-full p-2 border rounded-lg dark:bg-slate-800 dark:text-white" placeholder="Search your keyword..." />
             </div>
-        </div>
-
-        
-
-        <div v-else class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-10 gap-[30px]">
-            <div v-for="product in setProductData.slice(0, 8)" :key="product.id" class="group relative overflow-hidden p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:shadow-md dark:shadow-md hover:dark:shadow-gray-700 transition-all duration-500 hover:-mt-2 h-fit">
-                <div class="relative overflow-hidden">
-                    <div class="relative overflow-hidden rounded-lg">
-                        <img :src="product.image_url" class="mt-6 rounded-lg shadow-md dark:shadow-gray-700 group-hover:scale-110 transition-all duration-500 object-cover w-40 h-40 md:w-48 md:h-48 mx-auto bg-gray-100" alt="">
-                    </div>
-
-                    <div class="absolute -bottom-20 group-hover:bottom-1/2 group-hover:translate-y-1/2 start-0 end-0 mx-auto text-center transition-all duration-500">
-                        <router-link :to="{name: 'item-detail', params: {id: product.id}}" class="btn btn-sm rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white"><i class="mdi mdi-lightning-bolt"></i> Buy Now</router-link>
-                    </div>
-
-                    <div class="absolute top-2 end-2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <a href="javascript:void(0)" class="btn btn-icon btn-sm rounded-full bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white"><i class="mdi mdi-plus"></i></a>
-                    </div>
-
-                    <div v-if="product.showdate === true" class="absolute  bottom-2 start-0 end-0 mx-auto text-center bg-gradient-to-r from-violet-600 to-red-600 text-white inline-table text-lg px-3 rounded-full justify-center">
-                        <i class="uil uil-clock align-middle me-1 text-center"></i>  <small id="auction-item-1" class="font-bold"> {{ product.remaining?.days + " : " + product.remaining?.hours + " : " + product.remaining?.minutes + " : " + product.remaining?.seconds }}</small>
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <!-- <div class="flex items-center">
-                        <img :src="product.image" class="rounded-full size-8" alt="">
-                        <router-link to="/creator-profile" class="ms-2 text-[15px] font-medium text-slate-400 hover:text-violet-600">{{ product.name}}</routerlink>
-                    </div> -->
-
-                    <div class="my-3 text-center">
-                        <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="font-semibold hover:text-violet-600">{{ product.display_name }}</router-link>
-                        <div class="text-xs text-slate-400 mt-1 flex items-center justify-center gap-1">
-                            <i class="mdi mdi-map-marker"></i> {{ product.location }}
-                        </div>
-                        <div class="flex items-center justify-center mt-1">
-                            <span v-for="n in 5" :key="n">
-                                <i v-if="n <= (product.rating || 0)" class="mdi mdi-star text-yellow-400"></i>
-                                <i v-else class="mdi mdi-star-outline text-yellow-400"></i>
-                            </span>
-                        </div>
-                        <div v-if="product.skills && product.skills.length" class="flex flex-wrap items-center justify-center gap-2 mt-2">
-                            <span
-                              v-for="(skill, idx) in (Array.isArray(product.skills) ? product.skills : product.skills.split(','))"
-                              :key="idx"
-                              class="px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 text-xs font-medium border border-violet-200"
-                            >
-                              {{ skill.trim() }}
-                            </span>
-                        </div>
-                        <div class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                            {{ product.short_description }}
-                        </div>
-                        <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="inline-block mt-3 px-4 py-1 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold shadow transition">Lihat Profil</router-link>
-                    </div>
-
-                    <div class="flex justify-center items-center p-2 bg-gray-50 dark:bg-slate-800 rounded-lg shadow dark:shadow-gray-700">
-                        <router-link :to="{name: 'details-technician', params: {id: product.id}}" class="inline-block px-6 py-2 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-base font-semibold shadow transition">Lihat Profil</router-link>
-                    </div>
-                </div>
-            </div><!--end content-->
-        </div>
-
-        <div v-if="moreitem" class="grid grid-cols-1 mt-6">
-            <div class="text-center">
-                <router-link to="/explore-one" class="btn btn-link text-[16px] font-medium hover:text-violet-600 after:bg-violet-600 duration-500 ease-in-out">Explore More <i class="uil uil-arrow-right"></i></router-link>
+            <div class="mb-4">
+              <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Kota</label>
+              <select v-model="filters.city" class="w-full p-2 border rounded-lg dark:bg-slate-800 dark:text-white">
+                <option value="">Semua Kota</option>
+                <option v-for="city in cities" :key="city" :value="city">{{ city }}</option>
+              </select>
             </div>
+            <div class="mb-4">
+              <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Status</label>
+              <div class="flex gap-4">
+                <label><input type="checkbox" value="online" v-model="filters.status" /> Online</label>
+                <label><input type="checkbox" value="offline" v-model="filters.status" /> Offline</label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="text-sm text-slate-600 dark:text-slate-300 mb-1 block">Layanan</label>
+              <div class="flex flex-wrap gap-2">
+                <label v-for="service in allServices" :key="service">
+                  <input type="checkbox" :value="service" v-model="filters.services" /> {{ service }}
+                </label>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <button @click="resetFilters" class="flex-1 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Reset</button>
+              <button @click="showMobileFilter = false" class="flex-1 py-2 bg-gray-200 dark:bg-slate-700 text-slate-800 dark:text-white rounded-lg">Tutup</button>
+            </div>
+          </div>
         </div>
+      </div>
+      
+      <!-- Technician List -->
+      <div class="lg:col-span-3 space-y-8">
+        <div
+          v-if="filteredProducts.length === 0"
+          class="text-center text-gray-500 py-20"
+        >
+          <p class="text-lg font-medium">
+            Tidak ada workshop yang cocok dengan filter Anda.
+          </p>
+        </div>
+
+        <div
+          v-for="product in filteredProducts"
+          :key="product.id"
+          class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-700 shadow-lg rounded-2xl p-5 sm:p-8 lg:p-12 hover:shadow-2xl transition-all duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center min-h-[120px] sm:min-h-[160px] gap-4 sm:gap-0"
+        >
+          <div class="flex items-center gap-4">
+            <img
+              :src="product.image_url"
+              class="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-xl border-4 shadow-lg object-cover flex-shrink-0"
+            />
+            <div>
+              <h4 class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 dark:text-white">
+                {{ product.display_name }}
+              </h4>
+              <div class="text-sm sm:text-base text-slate-500 flex items-center gap-1 mt-1">
+                <i class="mdi mdi-map-marker"></i> {{ product.location }}
+              </div>
+              <div class="flex flex-wrap gap-1 sm:gap-2 mt-2 sm:mt-3">
+                <span
+                  v-for="service in product.services"
+                  :key="service"
+                  class="text-xs sm:text-sm bg-violet-100 text-violet-700 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full font-semibold"
+                >
+                  {{ service }}
+                </span>
+              </div>
+              <div class="mt-2 sm:mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">
+                {{ product.short_description }}
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 sm:mt-0 text-right">
+            <div class="flex flex-col items-end sm:items-end text-right w-full sm:w-auto">
+              <p class="text-base sm:text-xl font-bold text-violet-600 dark:text-white w-full sm:w-auto">
+                {{ product.price }}
+              </p>
+              <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1 w-full sm:w-auto">
+                {{ product.duration }}
+              </p>
+              <router-link
+                :to="{ name: 'details-technician', params: { id: product.id } }"
+                class="inline-block mt-3 sm:mt-4 w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-3 rounded-lg bg-violet-600 text-sm sm:text-lg text-white hover:bg-violet-700 transition font-bold text-center"
+              >
+                Informasi Detail
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+
+
     </div>
+  </div>
 </template>
 
 <script>
 import { useTechnicianStore } from '@/stores/storeTechnician'
 
 export default {
-    props: {
-        discover: { type: Boolean, required: true },
-        items: { type: Boolean, required: true },
-        moreitem: { type: Boolean, required: true },
-        explore: { type: Boolean, required: true },
-    },
-    name: "DiscoverTeknisi",
-    data() {
-        return {
-            setProductData: [],
-        }
-    },
-    mounted() {
-        const technicianStore = useTechnicianStore()
-        technicianStore.getTechnicians().then(() => {
-            this.setProductData = technicianStore.technicians.map(item => ({
-                ...item,
-                remaining: this.tickTock(item.date),
-            }))
-        })
-
-        this._interval = setInterval(() => {
-            const technicianStore = useTechnicianStore()
-            this.setProductData = technicianStore.technicians.map(item => ({
-                ...item,
-                remaining: this.tickTock(item.date),
-            }))
-        }, 1000)
-    },
-    beforeUnmount() {
-        clearInterval(this._interval)
-    },
-    methods: {
-        tickTock(date) {
-            let startDate = new Date(date);
-            let currentDate = new Date();
-            const diff = startDate.getTime() - currentDate.getTime();
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            return { hours, minutes, seconds, days }
+  name: "WorkshopList",
+  data() {
+    return {
+      setProductData: [],
+      filters: {
+        city: '',
+        status: [],
+        services: [],
+        keyword: ''
+      },
+      showMobileFilter: false,
+      cities: ['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', 'Bali'],
+      allServices: ['Servis HP', 'Ganti LCD', 'Software', 'Unlock', 'Cleaning', 'Sparepart'],
+      datas: [
+        {
+          id: 41,
+          mainimage: require('../assets/images/items/1.gif'),
+          type: 'Listing',
+          time: '3min 50sec ago',
+          title: "QUEEN'S COURT - Silver Card #72/250 was put up for sale for"
         },
+        {
+          id: 1,
+          mainimage: require('../assets/images/items/1.jpg'),
+          type: 'Sale',
+          time: '3min 50sec ago',
+          title: 'ethkun #5001 was sold for $9.27.'
+        },
+        {
+          id: 3,
+          mainimage: require('../assets/images/items/2.jpg'),
+          type: 'Offer',
+          time: '3min 50sec ago',
+          title: 'A global offer of $100.00 was placed for FACES'
+        },
+        {
+          id: 4,
+          mainimage: require('../assets/images/items/3.jpg'),
+          type: 'Deposit',
+          time: '3min 50sec ago',
+          title: 'Anatomy Science Ape Club #1113 was sold for $32.87.'
+        },
+        {
+          id: 2,
+          mainimage: require('../assets/images/items/2.gif'),
+          type: 'Listing',
+          time: '3min 50sec ago',
+          title: 'Swiss Army Man #16/30 was sold for $600.00.'
+        },
+        {
+          id: 6,
+          mainimage: require('../assets/images/items/4.jpg'),
+          type: 'Sale',
+          time: '3min 50sec ago',
+          title: 'Unsupervised — Machine Hallucinations — MoMA Dreams — I by Refik Anadol #84/100, 1 AP was sold for $1,210.16.'
+        },
+        {
+          id: 5,
+          mainimage: require('../assets/images/items/3.gif'),
+          type: 'Listing',
+          time: '3min 50sec ago',
+          title: '3D Bear #7333 was put up for sale for $8.00.'
+        },
+      ],
+      types: [
+        {
+          icon: 'uil uil-wallet me-1',
+          name: 'Purchased'
+        },
+        {
+          icon: 'uil uil-tag-alt me-1',
+          name: 'Sales'
+        },
+        {
+          icon: 'uil uil-fire me-1',
+          name: 'Burns'
+        },
+        {
+          icon: 'uil uil-heart me-1',
+          name: 'Likes'
+        },
+        {
+          icon: 'uil uil-browser me-1',
+          name: 'Bids'
+        },
+        {
+          icon: 'uil uil-users-alt me-1',
+          name: 'Following'
+        },
+        {
+          icon: 'uil uil-list-ui-alt me-1',
+          name: 'Listing'
+        },
+        {
+          icon: 'uil uil-music me-1',
+          name: 'Music'
+        },
+        {
+          icon: 'uil uil-camera me-1',
+          name: 'Video'
+        },
+        {
+          icon: 'uil uil-illustration me-1',
+          name: 'Illustration'
+        },
+      ]
     }
+  },
+  computed: {
+    filteredProducts() {
+      return this.setProductData.filter(p => {
+        const byCity = !this.filters.city || p.location === this.filters.city
+        const byStatus =
+          this.filters.status.length === 0 ||
+          this.filters.status.includes(p.online ? 'online' : 'offline')
+        const byService =
+          this.filters.services.length === 0 ||
+          p.services.some(s => this.filters.services.includes(s))
+        return byCity && byStatus && byService
+      })
+    }
+  },
+  mounted() {
+    const technicianStore = useTechnicianStore()
+    technicianStore.getTechnicians().then(() => {
+      this.setProductData = technicianStore.technicians.map(item => ({
+        ...item,
+        online: Math.random() > 0.5, // demo status online/offline
+        services: item.services || ['Servis HP', 'Software'],
+        price: item.price || 'Rp 150.000 - Rp 500.000',
+        duration: 'Waktu pengerjaan 1-3 hari',
+        location: item.location || 'Jakarta',
+      }))
+    })
+  },
+  methods: {
+    resetFilters() {
+      this.filters = { city: '', status: [], services: [] }
+    }
+  }
 }
+
+
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+/* Tidak perlu membatasi max-width container lagi */
+</style>

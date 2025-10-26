@@ -30,7 +30,10 @@
                     <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
                     <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
                 </div>
-            </div><!--end container-->
+            </div>
+            
+            
+            <!--end container-->
 
             <div class="container md:mt-36 mt-24">
 
