@@ -7,7 +7,7 @@
                     <div>
                         <label class="form-label font-semibold dark:text-white text-[15px]">Search:</label>
                         <div class="filter-search-form relative mt-2">
-                            <i class="uil uil-search icons"></i>
+                            <i class="uil uil-search icons text-emerald-500"></i>
                             <input name="name" type="text" id="job-keyword" class="form-input w-full filter-input-box bg-gray-50 dark:bg-slate-800 border-0 focus:ring-transparent" placeholder="Search your keaywords">
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div>
                             <label class="form-label font-medium dark:text-white">Search:</label>
                             <div class="filter-search-form relative filter-border mt-2">
-                                <i class="uil uil-search icons"></i>
+                                <i class="uil uil-search icons text-emerald-500"></i>
                                 <input name="name" type="text" id="job-keyword" class="form-input w-full filter-input-box bg-gray-50 dark:bg-slate-800 border-0 focus:ring-transparent" placeholder="Search your keaywords">
                             </div>
                         </div>

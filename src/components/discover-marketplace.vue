@@ -48,7 +48,7 @@
                 </div>
                 <div class="flex justify-between items-center p-2 bg-gray-50 dark:bg-slate-800 rounded-lg shadow dark:shadow-gray-700 mt-1">
                     <span class="text-[16px] font-medium text-slate-400">Harga</span>
-                    <span class="text-[18px] font-bold text-violet-700 flex items-center">{{ formatRupiah(product.price) }}</span>
+                    <span class="text-[18px] font-bold text-gray-700 flex items-center">{{ formatRupiah(product.price) }}</span>
                 </div>
             </div><!--end content-->
         </div><!--end grid-->

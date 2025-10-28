@@ -1,48 +1,46 @@
 <template>
-  <div>
+  <div class="bg-[#f4f4f4] text-[#1a1a1a] min-h-screen">
     <navbar :navLight="'nav-dark'" :logoLight="true" />
 
     <!-- Start Hero -->
-           <!-- Start Hero -->
-      <section class="relative md:pt-48 pt-36 overflow-hidden">
-        <div class="container hidden sm:block">
-                <div class="grid grid-cols-1 justify-center text-center mt-10">
-                    <div class="relative">
-                        <div class="relative mb-5">
-              <h1 class="font-bold lg:leading-snug leading-snug text-4xl lg:text-6x">Temukan Teknisi Profesional <br> untuk Kebutuhan <span class="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text"> Remote / Service Online</span></h1>
-
-              <div class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-top-[50px] after:start-[30%] after:-z-1 after:rounded-lg after:animate-[spin_10s_linear_infinite]"></div>
-
-              <div
-                class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/20 dark:after:bg-violet-600/40 after:bottom-[0] after:end-[15%] after:-z-1 after:rounded-full after:animate-ping">
-              </div>
+    <section class="relative md:pt-48 pt-36 overflow-hidden">
+      <div class="container hidden sm:block">
+        <div class="grid grid-cols-1 justify-center text-center mt-10">
+          <div class="relative">
+            <div class="relative mb-5">
+              <h1
+                class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight font-inter"
+              >
+                <span class="text-gray-900">Temukan Teknisi Profesional untuk Kebutuhan</span> <span class="text-emerald-500">Remote / Service Online.</span>
+              </h1>
             </div>
-            <p class="text-slate-400 dark:text-white/70 text-lg max-w-xl mx-auto">Tanya jawab dan konsultasi seputar permasalahan perangkat Anda secara online dengan mudah dan cepat!</p>
-                    </div>
-                </div><!--end grid-->
-
-                <div class="relative animate-[spin_30s_linear_infinite] -z-1">
-                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
-                    <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
-                </div>
-            </div>
-      
-
+            <p class="text-[#555] text-lg max-w-xl mx-auto">Tanya jawab dan konsultasi seputar permasalahan perangkat Anda secara online dengan mudah dan cepat!</p>
+          </div>
+        </div>
+        <div class="relative animate-[spin_30s_linear_infinite] -z-1">
+          <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
+          <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
+        </div>
+      </div>
       <!-- Filter Tabs -->
-      <div class="grid grid-cols-1 items-center gap-[30px] mt-10 mb-10">
+      <div class="grid grid-cols-1 items-center gap-[30px] mb-10 mt-0 sm:mt-10">
         <div class="filters-group-wrap text-center">
           <div class="filters-group">
             <ul class="mb-0 list-none container-filter-box filter-options">
               <li
-                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative text-slate-400 border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
-                :class="selectedCategory == null ? 'active' : ''"
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                :class="selectedCategory == null 
+                  ? 'bg-[#1a1a1a] text-white
+                  : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"
                 @click="$router.push('/explore-workshop')"
               >
                 <i class="uil uil-browser"></i> Workshop
               </li>
               <li
-                class="inline-block font-medium text-base mx-1.5 mb-3 py-1 px-3 cursor-pointer relative border border-gray-100 dark:border-gray-700 rounded-full transition duration-500"
-                :class="selectedCategory == 'teknisi' ? 'bg-violet-600 text-white border-violet-600' : 'text-slate-400'"
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                :class="selectedCategory == 'teknisi'
+                  ? 'bg-[#ff3d00] text-white'
+                  : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"
                 @click="$router.push('/explore-teknisi')"
               >
                 <i class="uil uil-volleyball" :class="selectedCategory == 'teknisi' ? 'text-white' : ''"></i> Teknisi
@@ -54,7 +52,7 @@
     </section>
     <!-- End Hero -->
 
-    <div class="relative">
+    <!-- <div class="relative">
       <div
         class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900"
       >
@@ -65,7 +63,7 @@
           ></path>
         </svg>
       </div>
-    </div>
+    </div> -->
 
     <!-- Start List Teknisi -->
     <section>
@@ -98,9 +96,17 @@ const openDetail = (tech) => {
 </script>
 
 <style lang="scss" scoped>
-.active {
-  background-color: #7c3aed;
-  color: white !important;
-  border-color: #7c3aed !important;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.shadow-md {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.ring-gray-100 {
+  --tw-ring-color: rgba(0, 0, 0, 0.05);
 }
 </style>

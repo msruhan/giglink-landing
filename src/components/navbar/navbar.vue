@@ -40,10 +40,10 @@
     <!-- Logo -->
     <div class="flex items-center space-x-2">
       <router-link to="/" class="flex items-center">
-        <div class="p-2 rounded-full bg-white">
+        <!-- <div class="p-2 rounded-full bg-white">
           <img src="../../assets/images/logo-icon-28.png" alt="Logo" class="w-8 h-8" />
-        </div>
-        <span class="font-semibold text-lg text-gray-800 ml-2">Giglink</span>
+        </div> -->
+        <span class="font-bold text-lg text-gray-800 ml-2">Giglink</span>
       </router-link>
     </div>
 
@@ -96,7 +96,7 @@
     </ul>
 
     <!-- Button: Desktop -->
-    <router-link to="/upload-work" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-violet-600 via-purple-500 to-fuchsia-500 text-white font-semibold px-5 py-2 rounded-full shadow-sm hover:shadow-lg hover:scale-105 transition duration-200">
+    <router-link to="/upload-work" class="hidden md:flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full shadow-sm hover:shadow-lg hover:scale-105 transition duration-200">
       Login
       <i class="uil uil-arrow-right"></i>
     </router-link>
