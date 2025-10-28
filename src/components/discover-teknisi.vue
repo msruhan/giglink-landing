@@ -51,7 +51,7 @@
       </aside>
 
       <!-- 🔹 Daftar Workshop -->
-      <div class="lg:col-span-3 space-y-8">
+      <div class="lg:col-span-3 space-y-2">
         <div
           v-if="filteredProducts.length === 0"
           class="text-center text-gray-500 py-20 font-inter"
@@ -81,14 +81,9 @@
 
           <!-- 🔸 Konten Utama -->
           <div class="flex-1">
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between mb-1">
               <div class="flex items-center gap-3">
-                <div
-                  class="w-8 h-8 flex items-center justify-center rounded-full border-2 border-gray-800 dark:border-white"
-                >
-                  <i class="mdi mdi-wrench text-lg text-gray-800 dark:text-white"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white font-geist">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white font-geist tracking-tight">
                   {{ product.display_name }}
                 </h3>
               </div>
@@ -102,7 +97,7 @@
               </div>
             </div>
 
-            <p class="text-sm text-gray-600 dark:text-slate-300 mb-3">
+            <p class="text-sm font-bold text-gray-500 dark:text-slate-300 mb-3 font-inter">
               {{ product.short_description }}
             </p>
 
@@ -110,23 +105,36 @@
               <span
                 v-for="srv in product.services"
                 :key="srv"
-                class="inline-flex items-center gap-1 bg-[#f4f4f4] dark:bg-slate-800 text-[#1a1a1a] dark:text-white px-3 py-1 rounded-xl text-xs font-medium border border-gray-200 dark:border-slate-600"
+                class="inline-flex items-center gap-1 bg-[#f4f4f4] dark:bg-slate-800 text-[#1a1a1a] dark:text-white px-2 py-0.5 rounded-xl text-xs font-inter font-semibold border border-gray-200 dark:border-slate-600 font"
               >
-                <i class="mdi mdi-wrench text-[#F1592A] text-base"></i>
+                <i class="mdi mdi-tools text-gray-500 text-base"></i>
                 {{ srv }}
               </span>
+              
             </div>
+<!-- 
+               'Servis HP': 'mdi-cellphone-cog',
+        'Ganti LCD': 'mdi-cellphone-link',
+        'Software': 'mdi-android',
+        'Unlock': 'mdi-lock-open-outline',
+        'Cleaning': 'mdi-water',
+        'Sparepart': 'mdi-tools', -->
 
             <div class="flex justify-between items-center mt-auto">
               <p class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm sm:text-base">
                 {{ product.price }}
               </p>
-              <router-link
-                :to="{ name: 'details-technician', params: { id: product.id } }"
-                class="px-4 py-1.5 rounded-full bg-emerald-500 text-white hover:bg-emerald-600 text-sm font-semibold shadow"
-              >
-                Informasi Detail
-              </router-link>
+          <router-link
+            :to="{ name: 'details-technician', params: { id: product.id } }"
+            class="explore-btn"
+          >
+            <span class="btn-text">Informasi Detail</span>
+            <span class="btn-icon">
+              <i class="mdi mdi-magnify"></i>
+            </span>
+          </router-link>
+
+          
             </div>
           </div>
         </div>
@@ -205,4 +213,42 @@ export default {
 .font-geist {
   font-family: 'Geist', sans-serif;
 }
+
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111; /* hitam pekat */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 9999px; /* membuat oval */
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #10b981; /* warna hijau emerald */
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 1.1rem;
+}
+
+.btn-text {
+  font-family: 'Geist', sans-serif;
+}
+
+
 </style>
