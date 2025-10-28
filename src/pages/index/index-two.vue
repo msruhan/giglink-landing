@@ -122,6 +122,8 @@
 
             <testimonial />
 
+            <pricing />
+
             <benefit />
 
             <empower />
@@ -157,5 +159,6 @@ import footers from '@/components/footer/footer.vue'
 import bestWorkshopSlider from '@/components/best-workshop-slider.vue';
 import benefit from '@/components/benefit.vue';
 import empower from '@/components/empower.vue';
+import pricing from '@/components/pricing.vue';
 
 </script>
