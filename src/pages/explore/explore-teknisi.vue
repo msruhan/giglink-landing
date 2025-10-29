@@ -14,7 +14,7 @@
                 <span class="text-gray-900">Temukan Teknisi Profesional untuk Kebutuhan</span> <span class="text-emerald-500">Remote / Service Online.</span>
               </h1>
             </div>
-            <p class="text-[#555] text-lg max-w-xl mx-auto">Tanya jawab dan konsultasi seputar permasalahan perangkat Anda secara online dengan mudah dan cepat!</p>
+            <p class="text-[#555] text-lg max-w-xl mx-auto font-inter">Tanya jawab dan konsultasi seputar permasalahan perangkat Anda secara online dengan mudah dan cepat!</p>
           </div>
         </div>
         <div class="relative animate-[spin_30s_linear_infinite] -z-1">
@@ -28,7 +28,7 @@
           <div class="filters-group">
             <ul class="mb-0 list-none container-filter-box filter-options">
               <li
-                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500 font-inter"
                 :class="selectedCategory == null
                   ? 'bg-[#1a1a1a] text-white'
                   : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"
@@ -37,7 +37,7 @@
                 <i class="uil uil-browser"></i> Workshop
               </li>
               <li
-                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500 font-inter"
                 :class="selectedCategory == 'teknisi'
                   ? 'bg-[#ff3d00] text-white'
                   : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"

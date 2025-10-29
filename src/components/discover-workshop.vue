@@ -2,7 +2,7 @@
     <section class="relative md:py-24 py-16 bg-[#f4f4f4] text-[#1a1a1a] min-h-screen font-inter">
         <div class="container">
             <div>
-                <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100 font-inter">Daftar Teknisi Remote</h3>
+                <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100 font-geist">Daftar Teknisi Remote</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div
                         v-for="tech in teknisiList"
@@ -10,7 +10,16 @@
                         class="flex flex-col sm:flex-row justify-between items-center sm:items-center bg-white/80 dark:bg-slate-900/80 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 border border-emerald-200 dark:border-emerald-700 backdrop-blur-md hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 overflow-hidden relative w-full gap-4 font-inter"
                         style="min-width:0; max-width:100%;"
                     >
-                        <div class="absolute top-0 left-0 bg-gradient-to-r from-black via-emerald-500 to-green-400 text-white text-xs font-bold px-3 py-1 rounded-br-xl shadow z-10">Remote Service</div>
+                        <div class="absolute top-0 left-0 flex items-center gap-2 bg-gray-100 px-3 py-1 text-white text-xs font-bold px-3 py-1 rounded-br-xl shadow-sm min-w-[90px]">
+                          <!-- <span>Remote Service</span> -->
+                          <!-- Online / Offline toggle badge -->
+                          <div class="flex items-center justify-between px-3 py-1">
+                            <span class="text-xs font-semibold text-gray-900 font-inter select-none">
+                              {{ tech.online ? 'Online' : 'Offline' }}
+                            </span>
+                            <span :class="tech.online ? 'bg-emerald-500 translate-x-0' : 'bg-gray-400 translate-x-0'" class="w-4 h-4 rounded-full transition-all duration-300 shadow-inner ml-2"></span>
+                          </div>
+                        </div>
                         <div class="flex items-center gap-4">
                             <div class="relative flex-shrink-0">
                                 <img :src="tech.avatar" class="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl object-cover border-4 border-gray-300 shadow-lg" />
@@ -20,36 +29,20 @@
                                 </span>
                             </div>
                             <div class="flex-1 w-full">
-                               <h4 class="font-bold text-base sm:text-lg lg:text-xl text-slate-800 dark:text-white flex items-center gap-2 font-inter">
+                               <h4 class="font-bold text-base sm:text-lg lg:text-xl text-slate-800 dark:text-white flex items-center gap-2 font-geist">
                                 {{ tech.name }}
-
-                                <!-- Online / Offline toggle badge -->
-                                <div
-                                    class="flex items-center justify-between bg-gray-100 px-3 py-1 rounded-full ml-2 shadow-sm min-w-[90px]"
-                                >
-                                    <span
-                                    class="text-xs font-semibold text-gray-900 font-inter select-none"
-                                    >
-                                    {{ tech.online ? 'Online' : 'Offline' }}
-                                    </span>
-                                    <span
-                                    :class="tech.online ? 'bg-emerald-500 translate-x-0' : 'bg-gray-400 translate-x-0'"
-                                    class="w-4 h-4 rounded-full transition-all duration-300 shadow-inner ml-2"
-                                    ></span>
-                                </div>
                                 </h4>
 
-                          <div class="flex flex-wrap gap-1.5 mt-1.5">
-                            <span
-                                v-for="(service, i) in tech.services"
-                                :key="i"
-                                class="inline-flex items-center gap-1 bg-[#f4f4f4] text-[#1a1a1a] px-2 py-0.5 rounded-lg text-xs font-medium border border-gray-200 shadow-sm hover:bg-gray-100 transition"
-                            >
-                                <i class="mdi mdi-wrench text-gray-500 text-sm"></i>
-                                {{ service }}
-                            </span>
-                          </div>
-
+                                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                                    <span
+                                        v-for="(service, i) in tech.services"
+                                        :key="i"
+                                        class="inline-flex items-center gap-1 bg-[#f4f4f4] text-[#1a1a1a] px-2 py-0.5 rounded-lg text-xs font-medium border border-gray-200 shadow-sm hover:bg-gray-100 transition"
+                                    >
+                                        <i class="mdi mdi-wrench text-gray-500 text-sm"></i>
+                                        {{ service }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col items-end sm:items-start gap-2 text-sm text-right sm:text-left mt-3 sm:mt-0">
@@ -59,11 +52,11 @@
                                   <button
                                     @click="showDetail(tech)"
                                     type="button"
-                                    class="group mt-2 px-6 py-0.5 rounded-full bg-[#0e0e0e] text-white flex items-center justify-center gap-2.5 shadow-sm hover:shadow-md transition-all duration-300 font-inter text-xs sm:text-sm font-medium"
+                                    class="explore-btn group mt-2 px-6 py-2 rounded-full flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-300 font-geist text-sm font-semibold"
                                     >
-                                    <span>Detail</span>
-                                    <span class="bg-emerald-500 w-8 h-8 rounded-full flex items-center justify-center p-0">
-                                        <i class="mdi mdi-magnify text-white text-xs group-hover:rotate-12 transition-transform"></i>
+                                    <span class="btn-text">Detail</span>
+                                    <span class="btn-icon">
+                                        <i class="mdi mdi-magnify"></i>
                                     </span>
                                  </button>
                             </div>
@@ -406,4 +399,40 @@ methods: {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111; /* hitam pekat */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 9999px; /* membuat oval */
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #10b981; /* warna hijau emerald */
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 1.1rem;
+}
+
+.btn-text {
+  font-family: 'Geist', sans-serif;
+}
+</style>

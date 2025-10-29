@@ -13,7 +13,9 @@ module.exports = {
             '2xl': '1536px',
         },
         fontFamily: {
-            'urbanist': ['"Urbanist", sans-serif']
+            'urbanist': ['"Urbanist", sans-serif'],
+            'inter': ['"Inter"', 'sans-serif'],
+            'geist' : ['"Geist Sans", sans-serif'],
         },
         container: {
             center: true,

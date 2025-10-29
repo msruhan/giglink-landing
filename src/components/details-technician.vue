@@ -24,7 +24,7 @@
                 <span class="flex items-center gap-1"><i class="mdi mdi-star"></i> {{ technician?.rating || '-' }} (245 Reviews)</span>
               </div>
               <div class="flex flex-wrap gap-2 mt-4 justify-center md:justify-start font-inter">
-                <button class="btn btn-sm rounded-full bg-white text-violet-700 hover:bg-violet-100 font-bold font-inter"><i class="mdi mdi-plus"></i> Follow</button>
+                <button class="btn btn-sm rounded-full bg-white text-gray-700 hover:bg-gray-200 font-bold font-inter"><i class="mdi mdi-plus"></i> Follow</button>
                 <a :href="technician?.youtube || '#'" class="btn btn-icon btn-sm rounded-full bg-red-600 hover:bg-red-700 text-white font-inter" title="Youtube" target="_blank"><i class="mdi mdi-youtube"></i></a>
                 <a :href="technician?.instagram || '#'" class="btn btn-icon btn-sm rounded-full bg-gradient-to-tr from-purple-600 to-yellow-400 hover:from-pink-600 hover:to-yellow-600 text-white font-inter" title="Instagram" target="_blank"><i class="mdi mdi-instagram"></i></a>
                 <a :href="technician?.facebook || '#'" class="btn btn-icon btn-sm rounded-full bg-blue-600 hover:bg-blue-800 text-white font-inter" title="Facebook" target="_blank"><i class="mdi mdi-facebook"></i></a>
@@ -60,8 +60,8 @@
                 <!-- Ribbon label -->
                 <div class="absolute top-0 left-0 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-br-xl shadow-lg z-10">Service</div>
                 <div class="flex items-center gap-3 mb-2 mt-2">
-                  <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-200 to-emerald-400 text-emerald-700 text-3xl shadow-lg"><i :class="service.icon"></i></span>
-                  <h4 class="font-semibold text-emerald-700 text-lg">{{ service.name }}</h4>
+                  <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gray-200 text-gray-700 text-3xl shadow-lg"><i :class="service.icon"></i></span>
+                  <h4 class="font-semibold text-gray-700 text-md font-inter">{{ service.name }}</h4>
                 </div>
                 <p class="text-sm text-slate-500 flex-1 mt-2">{{ service.desc }}</p>
               </div>
@@ -230,16 +230,6 @@
                   <div>
                     <p class="font-medium">Board Level Repair Training</p>
                     <p class="text-sm text-gray-500">Pandora Workshop · 2023</p>
-                  </div>
-                </li>
-
-                <li class="flex items-start gap-3">
-                  <div class="w-8 h-8 flex items-center justify-center bg-purple-100 rounded-full text-purple-600">
-                    <i class="fa-solid fa-mobile-screen"></i>
-                  </div>
-                  <div>
-                    <p class="font-medium">Smartphone Software Reprogramming</p>
-                    <p class="text-sm text-gray-500">MRT Dongle Academy · 2022</p>
                   </div>
                 </li>
               </ul>
