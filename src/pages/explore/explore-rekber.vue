@@ -5,77 +5,54 @@
         <navbar />
 
         <!-- Start Hero -->
-        <section class="relative md:pt-48 pt-36 overflow-hidden">
-            <div class="container">
+        <!-- <section class="relative md:pt-48 pt-12 overflow-hidden bg-[#f4f4f4] text-[#1a1a1a] min-h-screen font-inter pb-0"> -->
+            <section class="relative md:pt-32 pt-12 overflow-hidden bg-[#f4f4f4] text-[#1a1a1a] font-inter pb-20">
+             <div class="container hidden sm:block">
                 <div class="grid grid-cols-1 justify-center text-center mt-10">
                     <div class="relative">
                         <div class="relative mb-5">
-                            <h1 class="font-bold lg:leading-snug leading-snug text-4xl lg:text-6xl">Layanan Rekening Bersama</h1>
-
-                            <div class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/10 dark:after:bg-violet-600/30 after:-top-[50px] after:start-[30%] after:-z-1 after:rounded-lg after:animate-[spin_10s_linear_infinite]"></div>
-
-                            <div
-                                class="overflow-hidden after:content-[''] after:absolute after:h-10 after:w-10 after:bg-violet-600/20 dark:after:bg-violet-600/40 after:bottom-[0] after:end-[15%] after:-z-1 after:rounded-full after:animate-ping">
-                            </div>
+                            <h1
+                                class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight font-inter"
+                            >
+                                <span class="text-gray-900">Layanan</span> <span class="text-emerald-500">Rekening Bersama.</span>
+                            </h1>
                         </div>
-                        <p class="text-slate-400 dark:text-white/70 text-lg max-w-2xl mx-auto">Nikmati transaksi aman dan nyaman dengan Rekening Bersama. Dana akan disimpan oleh Giglink hingga barang atau jasa diterima sesuai kesepakatan, sehingga melindungi pembeli dan penjual dari risiko penipuan.</p>
-
-                        <div class="mt-8">
-                            <a href="#form-rekber" class="btn bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white rounded-full">Mulai Transaksi Rekber</a>
-                        </div>
+                        <p class="text-[#555] text-lg max-w-xl mx-auto font-inter">Nikmati transaksi aman dan nyaman dengan Rekening Bersama. Dana akan disimpan oleh Giglink hingga barang atau jasa diterima sesuai kesepakatan, sehingga melindungi pembeli dan penjual dari risiko penipuan</p>
                     </div>
                 </div>
-            </div><!--end container-->
-
-        </section><!--end section-->
-
-        <!-- <section class="relative md:py-24 py-16">
-            <div class="container">
-                <div class="grid grid-cols-1 text-center">
-                    <h3 class="md:text-[30px] text-[26px] font-semibold">Discover Items</h3>
-                </div>
-                <discover :moreitem=true />
             </div>
-            <div class="container md:mt-24 mt-16">
-                <div class="grid grid-cols-1 text-center">
-                    <h3 class="md:text-[30px] text-[26px] font-semibold">Best Creators & Sellers</h3>
-                </div>
-                <creators />
-            </div>
-            <question />
-            <getintouch />
-        </section> -->
-        <!-- End Hero -->
 
-        <section class="relative md:py-24 py-16">
-            <div class="container max-w-6xl mx-auto mb-12">
-                <h3 class="md:text-[30px] text-[26px] font-semibold text-center mb-8">Formulir Rekening Bersama</h3>
-                <form class="bg-white dark:bg-slate-900 rounded-xl shadow p-8 space-y-6">
+        </section>
+
+        <section class="relative bg-[#f4f4f4] text-[#1a1a1a] font-inter pb-40">
+            <div class="container max-w-6xl mx-auto">
+                <h3 class="md:text-[30px] text-[26px] font-semibold text-center mb-8 text-slate-800 dark:text-slate-100 font-geist">Formulir Rekening Bersama</h3>
+                <form class="bg-white dark:bg-slate-900 rounded-xl shadow p-8 space-y-6 border border-emerald-200 dark:border-emerald-700">
                     <div>
-                        <label class="block font-medium mb-1" for="nama">Nama</label>
-                        <input id="nama" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-violet-600 focus:ring-0 dark:bg-slate-800 dark:border-gray-700" placeholder="Nama lengkap" />
+                        <label class="block font-medium mb-1 font-inter" for="nama">Nama</label>
+                        <input id="nama" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-emerald-500 focus:ring-0 dark:bg-slate-800 dark:border-gray-700 font-inter" placeholder="Nama lengkap" />
                     </div>
                     <div>
-                        <label class="block font-medium mb-1" for="wa">Nomor Whatsapp</label>
-                        <input id="wa" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-violet-600 focus:ring-0 dark:bg-slate-800 dark:border-gray-700" placeholder="08xxxxxxxxxx" />
+                        <label class="block font-medium mb-1 font-inter" for="wa">Nomor Whatsapp</label>
+                        <input id="wa" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-emerald-500 focus:ring-0 dark:bg-slate-800 dark:border-gray-700 font-inter" placeholder="08xxxxxxxxxx" />
                     </div>
                     <div>
-                        <label class="block font-medium mb-1" for="telegram">Username Telegram</label>
-                        <input id="telegram" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-violet-600 focus:ring-0 dark:bg-slate-800 dark:border-gray-700" placeholder="@username" />
+                        <label class="block font-medium mb-1 font-inter" for="telegram">Username Telegram</label>
+                        <input id="telegram" type="text" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-emerald-500 focus:ring-0 dark:bg-slate-800 dark:border-gray-700 font-inter" placeholder="@username" />
                     </div>
                     <div>
-                        <label class="block font-medium mb-1" for="email">Email</label>
-                        <input id="email" type="email" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-violet-600 focus:ring-0 dark:bg-slate-800 dark:border-gray-700" placeholder="email@domain.com" />
+                        <label class="block font-medium mb-1 font-inter" for="email">Email</label>
+                        <input id="email" type="email" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-emerald-500 focus:ring-0 dark:bg-slate-800 dark:border-gray-700 font-inter" placeholder="email@domain.com" />
                     </div>
                     <div>
-                        <label class="block font-medium mb-1" for="catatan">Catatan</label>
-                        <textarea id="catatan" rows="3" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-violet-600 focus:ring-0 dark:bg-slate-800 dark:border-gray-700" placeholder="Catatan tambahan (opsional)"></textarea>
+                        <label class="block font-medium mb-1 font-inter" for="catatan">Catatan</label>
+                        <textarea id="catatan" rows="3" class="form-input w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-emerald-500 focus:ring-0 dark:bg-slate-800 dark:border-gray-700 font-inter" placeholder="Catatan tambahan (opsional)"></textarea>
                     </div>
                     <div class="flex items-start">
-                        <input id="setuju" type="checkbox" class="form-checkbox rounded text-violet-600 focus:ring-0 mt-1" />
-                        <label for="setuju" class="ms-2 text-sm text-gray-700 dark:text-gray-300">Saya setuju bahwa dana akan disimpan oleh Rekber hingga barang diterima.</label>
+                        <input id="setuju" type="checkbox" class="form-checkbox rounded text-emerald-500 focus:ring-0 mt-1" />
+                        <label for="setuju" class="ms-2 text-sm text-gray-700 dark:text-gray-300 font-inter">Saya setuju bahwa dana akan disimpan oleh Rekber hingga barang diterima.</label>
                     </div>
-                    <button type="submit" class="w-full btn bg-violet-600 hover:bg-violet-700 border-violet-600 hover:border-violet-700 text-white rounded-full py-3 font-semibold text-lg">Submit</button>
+                    <button type="submit" class="w-full btn bg-emerald-500 hover:bg-emerald-600 border-emerald-500 hover:border-emerald-600 text-white rounded-full py-3 font-semibold text-lg font-geist shadow-md transition-all duration-200">Submit</button>
                 </form>
             </div>
 
@@ -98,4 +75,18 @@ import switcher from '@/components/switcher.vue'
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.shadow-md {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.ring-gray-100 {
+  --tw-ring-color: rgba(0, 0, 0, 0.05);
+}
+</style>
