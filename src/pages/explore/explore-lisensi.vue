@@ -25,13 +25,16 @@
                 <span class="after:absolute after:start-0 after:bottom-1/2 after:translate-y-1/2 after:rotate-90 after:h-2 after:w-8 after:rounded-md after:bg-violet-600/20 relative after:z-10"></span>
              </div>
         </div>
+
+        <bannerslider />
+
         <!-- Filter Tabs -->
-        <div class="grid grid-cols-1 items-center gap-[30px] mb-10 mt-0 sm:mt-10">
+        <div class="grid grid-cols-1 items-center gap-[30px] mt-10">
             <div class="filters-group-wrap text-center">
                 <div class="filters-group">
                     <ul class="mb-0 list-none container-filter-box filter-options">
                     <li
-                        class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                        class="inline-block font-medium text-base mx-1.5 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
                         :class="selectedCategory == null 
                         ? 'bg-[#1a1a1a] text-white' 
                         : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"
@@ -40,7 +43,7 @@
                         <i class="uil uil-browser"></i> Workshop
                     </li>
                     <li
-                        class="inline-block font-medium text-base mx-1.5 mb-3 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
+                        class="inline-block font-medium text-base mx-1.5 py-2 px-4 cursor-pointer relative rounded-full transition duration-500"
                         :class="selectedCategory == 'teknisi'
                         ? 'bg-[#ff3d00] text-white'
                         : 'text-gray-700 bg-white border border-gray-200 shadow-sm'"
@@ -65,10 +68,11 @@
         <!-- End Hero -->
 
         <section class="relative">
-            <searchbar />
-            <div class="container mt-16">
+                <div class="hidden sm:block mt-10">
+                    <searchbar />
+                </div>
+            <div class="container">
                 <items :items=true />
-                <pagination />
             </div>
         </section>
 
@@ -85,6 +89,7 @@ import items from '@/components/discover-lisensi.vue';
 import pagination from '@/components/pagination.vue';
 import switcher from '@/components/switcher.vue';
 import footers from '@/components/footer/footer.vue'
+import bannerslider from '@/components/bannerslider.vue';
 
 </script>
 
